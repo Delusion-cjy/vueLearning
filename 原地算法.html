@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var rotate = function(nums, k) {
+            if(!nums.length||k<0){
+                return
+            }
+            var num
+            if(nums.length>=k){
+                var numCache = nums.length+k
+                num = nums.length
+            }else if(nums.length<k){
+                var numCache = k%nums.length
+                num = nums.length
+            }
+            if(k!=0){
+                for(var i=numCache-1;i>=k;i--){
+
+                    nums[i] = nums[i-k]
+                    nums[i-k] = null
+                    }
+                    for(var j=num;j<numCache;j++){
+                    nums[j-num] = nums[j]
+                    }
+                    nums.splice(num,numCache)
+            }else{
+                nums = nums
+            }              
+
+
+        };
+        rotate([1],3)
+        //原地算法 实际上是将数组中的两个元素调换位置,且消耗的资源尽可能小
+    </script>
+</body>
+</html>

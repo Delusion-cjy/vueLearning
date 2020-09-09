@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvasControl {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <p style="text-align: center;">悬停鼠标可看到坐标</p>
+    <div id="canvasControl">
+    <input type="range" min="0" max="500" value="0">
+    <canvas id="myCanvas" width="500" height="500" onmousemove="cnvs_getCoordinates(event)" onmouseout="cnvs_clearCoordinates()">test</canvas>
+    
+    </div>
+    <br>
+    <br>
+    <br>
+    <div id="xycoordinates" style="text-align: center;"></div>
+    <script type="text/javascript">
+        var c=document.getElementById("myCanvas");
+        var cxt=c.getContext("2d");
+        cxt.fillStyle="#87CEEB";
+        cxt.fillRect(0,0,500,500);
+        function cnvs_getCoordinates(e){
+            x = e.clientX;
+            y = e.clientY;
+            document.getElementById("xycoordinates").innerHTML="Coordinates:("+x+" , "+y+")";
+        }
+        function cnvs_clearCoordinates(){
+            document.getElementById("xycoordinates").innerHTML = "";
+        }
+    </script>
+</body>
+</html>

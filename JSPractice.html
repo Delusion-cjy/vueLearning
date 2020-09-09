@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <p id="demo" style="color: chocolate;"></p>
+    <!-- <p>Number()方法也太酷了，可以把日期转化为数字，输入日期会返回1970.1.1至日期的毫秒数</p> -->
+    <p>所以出生到现在的毫秒数为：</p>
+    <p id="number"></p>
+    <p id="testArr"></p>
+    <script>
+        // setTimeout( 
+        //    "document.getElementById("demo").innerHTML = Date();",1000 
+
+        // )
+
+
+       document.getElementById("number").innerHTML = 
+       Number(new Date("2020-07-13"))-Number(new Date("1998-11-15"))
+       var person = ["test1","test2","test3"]
+       document.getElementById("testArr").innerHTML = person;
+       document.write(...person)
+    </script>
+
+</body>
+</html>
