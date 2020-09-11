@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <div class="app">
+        <div>{{test1}}</div>
+        <div class="app">
+            <div>{{test2}}</div>
+        </div>
+        <father :fatherMsg="father"></father>
+    </div> 
+    把el改成.app,test1和test2都可以挂载成功-->
+    <div id="app">
+        <div>props中不能出现大写字母,也就是说不能用驼峰命名法,否则都会被渲染成小写字母从而传值失败被$attrs捕获</div>
+        <div>但是在传值的时候,v-bind绑定的属性可以出现大写字母,props中则不行,因为绑定的属性中的大写字母都会被转换成小写字母</div>
+        <input type="text" v-model="msg1" placeholder=" ">
+        <father :fatherMsg="msg1"></father>
+        <son :sonmsg="msg1"></son>
+
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        // var vm = new Vue({
+        //     el:'.app',
+        //     data() {
+        //         return {
+        //                     test1:'把id="app"换成了class="app"试试能不能挂载',
+        //                     test2:'在class="app"中嵌套了一个class="app"看看能不能挂载'
+
+        //             }
+        //         },
+        // })
+        Vue.component('father',{
+            props:["fathermsg"],
+            template:'<div>{{fathermsg}}</div>'
+        })
+        Vue.component('son',{
+            props:["sonmsg"],
+            template:'<div>{{sonmsg}}</div>'
+        })
+        console.log(this)
+        var vm = new Vue({
+            el:'#app',
+            data() {
+                return {
+                            test1:'把id="app"换成了class="app"试试能不能挂载',
+                            test2:'在class="app"中嵌套了一个class="app"看看能不能挂载',
+                            msg1:''
+
+                    }
+                },
+        })
+    </script>
+</body>
+</html>

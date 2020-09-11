@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>js上下文为变量\函数\函数参数,js解释器在解释执行的时候分为三个阶段 声明阶段,初始化阶段,执行阶段</div>
+    <div>声明阶段特点是声明前置,声明前置又分为声明前置和函数声明前置,且函数声明前置优先于变量声明前置,变量名和函数名冲突会忽略变量的声明</div>
+    <div>且变量和函数不会重复声明</div>
+    <div>但是,仅仅是声明</div>
+    <div>会被赋值覆盖</div>
+    <script>
+        var x = 1;
+        function x(){
+            return 'x is a function'
+        }
+        console.log(x) // 输出1
+        // console.log(x()) //报错Uncaught TypeError: x is not a function
+        // 因为变量function比var先声明,且声明不会被覆盖,但是会被变量赋值覆盖
+        // 但是这里变量声明的同时初始化或赋值,那么优先级要高于函数
+
+
+        /*
+            var y = 0;
+            function y() {
+                return 'y() is a function'
+            }
+            console.log('y',y) // 函数声明
+            console.log(y()) //函数执行
+            console.log(y)  //变量赋值
+            console.log(y()) //覆盖了
+        */
+        // 应该是var y执行但未赋值,然后function y声明,此时y是function
+
+        console.log('y',y) // 输出y()函数体
+        console.log(y()) //输出y() is a function
+        var y = 0;
+        function y() {
+            return 'y() is a function'
+        }
+        console.log(y) //输出0
+        // console.log(y()) //报错y is not a function
+        
+            console.log(z) // function z
+            console.log(z()); //5
+            var z=1;
+            function z(){
+                console.log(5);
+            }
+            console.log(z) //undefined
+            // console.log(z());// 报错 z is not a function
+
+            
+    </script>
+</body>
+</html>

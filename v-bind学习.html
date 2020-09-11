@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .cssStyle {
+            width:500px;
+            height:500px;
+            background-color:green
+        }
+        .arrStyle {
+            width:500px;
+            height:500px;
+            background-color:yellow
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -16,8 +28,19 @@
 
         <div :style="cssStyle">可以用v-bind绑定对象,来传入属性,因为都会用toString()方法转换成字符串</div>
         <div :style="arrStyle">也可以绑定style传入数组对象</div>
-        <div>晚点学习v-bind组件传值</div>
 
+        <div :style="{cssStyle:judgeTrue,arrStyle:judgeFalse}">绑定style传入对象,对象中如果有判断好像没用</div>
+        <div :style="{cssStyle,arrStyle}">绑定style传入对象,对象中如果有判断好像没用</div>
+        <div :style="{'background-color':divColor,width:divWidth,height:divHeight}">但是可以这样</div>
+        <div :class="{cssStyle:false,arrStyle:true}">绑定class传入对象</div>
+        <div>晚点学习v-bind组件传值</div>
+        <div>使用v-bind可以在子组件上传入父组件的值,用法为在子组件上绑定子组件的属性,属性值为父组件的值</div>
+        <div>这种传值方法即为props传值</div>
+        <input type="text" v-model="myMessage">
+        <child :message="myMessage"></child>
+        <!-- <div></div>
+        <input type="text" v-bind="bindMessage">
+        <child :message="bindMessage"></child> -->
     </div>
     <script src="vue.js"></script>
     <script>
@@ -44,10 +67,14 @@
 
         }
         var arrStyle = [
-            {'background-color':pink},
+            {'background-color':'pink'},
             {width:'500px'},
             {height:'500px'}
         ]
+        Vue.component('child',{
+            props:["message"],
+            template:'<span>{{message}}</span>'
+        })
         var vm = new Vue({
             el:'#app',
             data() {
@@ -58,10 +85,20 @@
                     arr1:arr1,
                     arr2:arr2,
                     cssStyle:cssStyle,
-                    arrStyle:arrStyle
+                    arrStyle:arrStyle,
+                    myMessage:'have a test',
+                    bindMessage:{
+                        message:'have a test'
+                    },
+                    divColor:'red',
+                    divWidth:'500px',
+                    divHeight:'500px',
+                    judgeTrue:true,
+                    judgeFalse:false
                 }
             },
         })
     </script>
+
 </body>
 </html>
