@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="https://www.cnblogs.com/leijee/p/7490822.html">https://www.cnblogs.com/leijee/p/7490822.html</a>
+    <script>
+        console.group('==========Object.create==========')
+        console.log('Object.create(obj)创建的对象继承自传入的obj对象,如果传入null则是空对象,且没有hasOwnProperty等属性,如果是个正常对象则创建出来的对象也会有正常的属性,这都取决于继承对象即传入的obj')
+        var obj1 = Object.create(null)
+        var obj2 = Object.create(obj1)
+        console.log(obj1)
+        console.log(obj2)
+
+        var obj3 = {}
+        var obj4 = Object.create(obj3)
+        console.log(obj3)
+        console.log(obj4)
+
+        var obj5 = {
+            a:1,
+            b:2
+        }
+        var obj6 = Object.create(obj5)
+        console.log(obj6)
+        console.groupEnd()
+        console.group('=========={}==========')
+        console.log('{}创建的对象就是正常的继承自Object原型链的对象,有hasOwnProperty,toString等对象公有属性,相当于直接继承自Object,继承由{}创建出来的对象也会有公有属性')
+        var obj7 = {}
+        var obj8 = Object.create(obj7)
+        console.log(obj7)
+        console.log(obj8)
+
+        var obj9 = {
+            a:'1',
+            b:'2'
+        }
+        var obj10 = Object.create(obj9)
+        console.log(obj9)
+        console.log(obj10)
+        console.groupEnd()
+        console.group('==========new Object()==========')
+        console.log('new Object()创建出来的对象和用{}创建出来的的对象相同,甚至完全一样')
+        var obj11 = new Object()
+        console.log(obj11)
+        var obj12 = Object.create(obj11)
+        console.log(obj12)
+        console.groupEnd()
+    </script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        console.group('Object.assign()实现对象深拷贝')
+        var obj1 = {
+            'a':1,
+            'b':2,
+            'c':3
+        };
+        var obj2 = {
+            'a':10,
+            'b':9,
+            'c':8
+        };
+        var objCopy1 = {}
+        console.group('Object.assign()只能实现对象一维属性的深拷贝,对象的属性为对象或者数组等引用对象类型时为浅拷贝')
+        console.log('objCopy',objCopy1)
+        Object.assign(objCopy1,obj1)
+        console.log('objCopy',objCopy1)
+        objCopy1.a = 7
+        console.log('objCopy',objCopy1)
+        var obja = {
+            'a':1,
+            'b':2,
+            c:{
+                'd':2
+            }
+        }
+        var objCopy2 = {}
+        console.group('Object.assign()只能实现一维对象的深拷贝,二维对象为浅拷贝')
+        console.log('objCopy2',objCopy2)
+        Object.assign(objCopy2,obja)
+        console.log('objCopy2',objCopy2)
+        objCopy2.c.d = 3
+        console.log('objCopy2',objCopy2)
+        console.log('obja',obja)
+        console.groupEnd()
+        console.groupEnd()
+        console.groupEnd()
+        console.group('数组的深拷贝')
+        console.group('slice()实现数组的深拷贝')
+        var arr1 = [1,2,3,4,5]
+        var arr2 = arr1.slice()
+        console.log('arr1',arr1)
+        console.log('arr2',arr2)
+        console.group('slice()实现多维数组拷贝为浅拷贝')
+        var arr3 = [
+            {
+                'a':1,
+                'b':2
+            },
+            {
+                'a':3,
+                'b':4
+            }
+        ]
+        var arr4 = arr3.slice()
+        console.log('arr3',arr3)
+        console.log('arr4',arr4)
+        arr4[0].a = 5
+        console.log('arr3',arr3)
+        console.log('arr4',arr4)
+
+        var arr5 = [
+            [1,2,3,4],
+            [2,3,4,5],
+            [3,4,5,6]
+        ]
+        var arr6 = []
+        arr6 = arr5.slice()
+        console.log('arr5',arr5)
+        console.log('arr6',arr6)
+        arr6[0][1] = 10
+        console.log('arr5',arr5)
+        console.log('arr6',arr6)
+        console.groupEnd()
+        console.groupEnd()
+        console.group('concat()实现一维数组的深拷贝')
+        var arrConcat1 = [1,2,3,4,5]
+        var arrConcat2 = [2,3,4]
+        var arrConcat3 = arrConcat2.concat(arrConcat1)
+        console.log('arrConcat1',arrConcat1)
+        console.log('arrConcat3',arrConcat3)
+        arrConcat1[0] = 10
+        console.log('arrConcat1',arrConcat1)
+        console.log('arrConcat3',arrConcat3)
+        console.group('concat()实现数组对象的浅拷贝')
+        var arrConcat4 = [
+            {
+                a:1,
+                b:2
+            }
+        ]
+        var arrConcat5 = [
+            {
+                a:3,
+                b:5
+            }
+        ]
+        var arrConcat6 = arrConcat4.concat(arrConcat5)
+        console.log('arrConcat6',arrConcat6)
+        arrConcat4[0].a = 10
+        console.log('arrConcat6',arrConcat6)
+        console.log('尝试用concat实现数组复制')
+        var arrConcat7 = [1,2,3,4,5]
+        var arrConcat8 = []
+        arrConcat8 = arrConcat8.concat(arrConcat7)
+        console.log('arrConcat8',arrConcat8)
+        console.log('可以用concat将数组a拼接到空数组b后实现数组复制')
+        console.groupEnd()
+        console.groupEnd()
+        console.groupEnd()
+        console.groupEnd()
+        console.group('使用Array.from()实现一维数组的深拷贝')
+        var arrFrom1 = [1,2,3,4]
+        var arrFrom2 = Array.from(arrFrom1)
+        console.log(arrFrom1)
+        console.log(arrFrom2)
+        arrFrom2[0] = 10
+        console.log(arrFrom1)
+        console.group('使用Array.from()实现多维数组的浅拷贝')
+        var arrFrom3 = [1,[2,3,4],3,4]
+        var arrFrom4 = Array.from(arrFrom3)
+        console.log(arrFrom4)
+        arrFrom4[1][2] = 5
+        console.log(arrFrom4)
+        console.log(arrFrom3)
+        console.group('在Array.from()中使用箭头函数')
+        var arrFrom5 = Array.from(arrFrom3,x=>x+x)
+        console.log(arrFrom5)
+        console.log([1,2,3]+[1,2,3])
+        console.group('使用Array.from()实现数组去重合并')
+        function combine(){
+            let arr = [].concat.apply([],arguments)
+            console.log(arr)
+            return Array.from(new Set(arr))
+        }
+        console.log(combine([1,2,3],[2,3,4]))
+        console.groupEnd()
+        console.groupEnd()
+        console.groupEnd()
+        console.log('尝试默写数组去重合并方法')
+        function combineCopy(){
+            let arr = [].concat.apply([],arguments)
+            return Array.from(new Set(arr))
+        }
+        console.log(combineCopy([1,2,1,1,3,4,5],[1,2,3,4,5,3,11]))
+
+        console.groupEnd()
+        console.groupEnd()
+        console.groupEnd()
+        console.group('研究用JSON.parse(JSON.stringify(obj))进行深拷贝')
+
+        var objson1 = {
+            a:[1,2,3],
+            b:[1,2,3,[1,2,3]],
+            c:'ccc',
+            d:{
+                a:'aaa'
+            },
+            e:undefined,
+            f:new Object(),
+            g:haveatest(){
+                console.log('there is function')
+            },
+        }
+        console.log(objson1)
+
+        var objson2 = JSON.parse(JSON.stringify(objson1)) 
+        console.log(objson2)
+    </script>
+</body>
+</html>
