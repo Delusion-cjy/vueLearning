@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        console.group('======遍历数组(6种)=====')
+        console.group('======forEach=====')
+        var arr1 = [1,2,3,4]
+        var arr2 = []
+        arr1.forEach(x=>arr2.push(x))
+        console.log(arr1)
+        console.log(arr2)
+        console.log('-----------------')
+        var arr3 = [1,2,3,[1,2,3]]
+        var arr4 = []
+        arr3.forEach(x=>arr4.push(x))
+        console.log(arr3)
+        console.log(arr4)
+        console.group('=========for========')
+        var arr5 = [1,2,3,4,[1,2,3,4]]
+        var arr6 = []
+        for(let i=0;i<arr5.length;i++){
+            arr6[i] = arr5[i]            
+        }
+        console.log(arr6)
+        arr5[4][0] = 7
+        // 浅拷贝
+        console.log('-----------------')
+        var arr7 = [1,2,3,4,[1,2,3,4]]
+        var arr8 = []
+        for(let i=0;i<arr7.length;i++){
+            arr8[i] = arr7[i]
+            if(arr7[i].length){
+                for(let j=0;j<arr7[i].length;j++){
+                    arr8[i][j] = arr7[i][j]
+                }
+            }
+        }
+        console.log(arr7)
+        console.log(arr8)
+        arr7[4][0] = 7
+        console.log(arr8)
+        // 浅拷贝
+        console.group('=========map========')
+        console.log('map会返回一个新的数组,forEach不会')
+        var arr9 = [1,2,3,4,5,[1,2,3,4,5]]
+        var arr0 = arr9.map(x => x = x)
+        console.log(arr0)
+        console.group('=========for in========')
+        var arrx = [1,2,3,4,[1,2,3,4]]
+        var arrx1 = []
+        for(let i  in arrx){
+            arrx1[i] = arrx[i]
+            // 返回的 i 是索引
+            console.log(i)
+        }
+        console.log(arrx1)
+        arrx[4][0] = 10
+        console.log(arrx1) // 浅拷贝
+
+        var obj1 = {
+            a:1,
+            b:{
+                c:1,
+                d:2
+            }
+        }
+        for(let i in obj1){
+            console.log(i)
+        }
+        console.group('=======for in for of======')
+        console.log('https://www.cnblogs.com/rogerwu/p/10738776.html')
+        console.groupEnd()
+        console.groupEnd()
+        console.groupEnd()
+        console.groupEnd()
+        console.groupEnd()
+        console.groupEnd()
+        console.log('算了算了还是写一写')
+        console.group('=======遍历对象(5种)======')
+        console.group('=======for in======')
+        console.log('算了算了还是写一写')
+        var obj2 = {'nama':'yaya','dada':'123','caca':{'kaka':'jaja'}}
+        var obj3 = {}
+        Object.prototype.por1 = function(){}
+        Object.defineProperty(obj2,'definedProp0',{
+            enumerable:true
+        })
+        Object.defineProperty(obj2,'defineProp1',{
+            enumerable:false
+        })
+        // i 是索引
+        for(let i in obj2){
+            console.log(i)
+        }
+        console.log('----------')
+
+        for(let i in obj2){
+            obj3[i] = obj2[i]
+        }
+        console.log(obj2)
+        console.log(obj3)
+        obj2.nama = 'dada'
+        console.log(obj2)
+        console.log(obj3)
+        obj2.caca.kaka = 'mama'
+        console.log(obj2)
+        console.log(obj3)
+        // 一维对象是深拷贝,多维是浅拷贝,但是只复制可枚举属性且不包含symbol属性
+        // 且会遍历原型链上的属性,会在遍历自身属性之后
+        console.group('=======Object.key()======')
+        var obj4 = {
+            a:'a',
+            b:'b',
+            c:{d:'d'}
+        }
+        var obj5 = {}
+        var arrOfobj4keys = Object.keys(obj4)
+        console.log(arrOfobj4keys)
+        arrOfobj4keys.forEach(x => obj5[x] = obj4[x])
+        console.log(obj5)
+        obj4.a = 'aa'
+        console.log(obj5)
+        obj4.c.d = 'dd'
+        console.log(obj5)
+        // 一维对象是深拷贝,多维对象为浅拷贝
+        // Object.key()会返回所有的可枚举属性,组成一个数组,且不包括原型链上的属性和Symbol属性
+        console.group('=======Objcet.getOwnPropertyNames()======')
+        var obj6 = {
+            a:'a',
+            b:'b',
+            c:{d:'d'}
+        }
+        var obj5 = {}
+        var arrTest = Object.getOwnPropertyNames(obj6)       
+        console.log(arrTest)
+        //输出对象自身的可枚举和不可枚举属性的数组,不输出原型链上的属性
+        console.groupEnd()
+        console.groupEnd()
+        console.groupEnd()
+        console.groupEnd()
+
+        console.group('---------Test---------')
+        var a = [1,2,3,4,[1,2,3,4]]
+        // console.log(a[4].length)
+        // for( let i in a){
+        //     console.log(a[i].length)
+        // }
+        // console.log(a[4][4].length)
+
+
+        // var arrTest = [[[1,2,3,4],1,2,3,4,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,[1,2,3,4]]]
+        // var arrCopy = arrayDeal(arrTest)
+        // console.log(arrTest)
+        // console.log(arrCopy)
+
+        // arrTest[0][0][0] = 10
+        // console.log(arrTest)
+        // console.log(arrCopy)
+        //数组的深拷贝
+        function arrayDeal(value){
+            let valueCopy = []
+            for(let i =0;i<value.length;i++){
+                if(Array.isArray(value[i])){
+                    valueCopy[i] = arrayDeal(value[i])
+                }else{
+                    valueCopy[i] = value[i]
+                }
+            }
+            return valueCopy
+        }
+        function isObject(value){
+            return typeof value === 'object' ? true :false && value !== null
+        }
+
+
+
+        var objTest = {
+            a:'1',
+            b:'2',
+            c:{
+                d:'3'
+            }
+        }
+
+        // var objTestKey = Object.keys(objTest)
+        // console.log(objTestKey[0])
+        // console.log(objTest.objTestKey)
+        var objCheck = deepClone(objTest)
+        console.log(objTest)
+        console.log(objCheck)
+
+        // 对象的深拷贝
+        function objDeal(value){
+            let objvalue = {}
+            let objkeys = Object.keys(value)
+            for(let i of objkeys){
+                if(isObject(value[i])){
+                    objvalue[i] = objDeal(value[i])
+                    
+                }else{
+                    objvalue[i] = value[i]
+                }
+            }
+            return objvalue
+        }
+
+        function deepClone(value){
+            if(!isObject(value)) return value
+            var cloneRobot = Array.isArray(value) ? [] : {}
+            for(let i in value){
+                if(isObject(value[i])){
+                    cloneRobot[i] = deepClone(value[i])
+                }else{
+                    cloneRobot[i] = value[i]
+                }
+            }
+            return cloneRobot
+        }
+    </script>
+</body>
+</html>

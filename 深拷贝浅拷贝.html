@@ -166,14 +166,94 @@
             },
             e:undefined,
             f:new Object(),
-            g:haveatest(){
-                console.log('there is function')
-            },
         }
         console.log(objson1)
 
         var objson2 = JSON.parse(JSON.stringify(objson1)) 
         console.log(objson2)
+        console.groupEnd(objson2)
+        console.groupEnd(objson2)
+        console.groupEnd(objson2)
+        console.groupEnd(objson2)
+        console.groupEnd(objson2)
+        console.group('拷贝自己写')
+
+
+        // array也是对象
+        console.log(typeof arr1)
+        // Array,isArray()是自带的函数
+        console.log(typeof Array.isArray())
+
+
+
+        function deepCopy(value){
+            // 判断是不是对象
+            if(isObject(value)){
+                // 判断是不是函数
+                if(isFunc(value)){
+                    return
+                }
+                // 判断是不是数组
+                if(Array.isArray(value)){
+                    arrayDeal(value)
+                }else{
+                    objDeal(value)
+                }
+            }else{
+                return
+            }
+        }
+        // 判断是不是对象
+        // null也返回true
+        function isObject(value){
+            return typeof value === 'object' ? true :false && value !== null
+        }
+
+        function isFunc(value){
+            return typeof value === 'function'
+        }
+        // 对象是数组的处理方法-对数组进行深拷贝
+        function arrayDeal(value){
+            let valueCopy = []
+            for(let i =0;i<value.length;i++){
+                if(Array.isArray(value[i])){
+                    valueCopy[i] = arrayDeal(value[i])
+                }else{
+                    valueCopy[i] = value[i]
+                }
+            }
+            return valueCopy
+        }
+        // 对对象进行深拷贝
+        function objDeal(value){
+            let objvalue = {}
+            let objkeys = Object.keys(value)
+            for(let i of objkeys){
+                if(isObject(value[i])){
+                    objvalue[i] = objDeal(value[i])
+                    
+                }else{
+                    objvalue[i] = value[i]
+                }
+            }
+            return objvalue
+        }
+
+        // 融合!
+        function deepClone(value){
+            if(!isObject(value)) return value
+            var cloneRobot = Array.isArray(value) ? [] : {}
+            for(let i in value){
+                if(isObject(value[i])){
+                    cloneRobot[i] = deepClone(value[i])
+                }else{
+                    cloneRobot[i] = value[i]
+                }
+            }
+            return cloneRobot
+        }
+
+
     </script>
 </body>
 </html>
