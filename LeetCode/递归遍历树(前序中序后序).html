@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //前序遍历
+        var preorderTravelval = (root) => {
+            let result = []
+            var preorderTravelvalNode = (node) => {
+                if(node){
+                    if(node.val !== null) result.push(node.val)
+                    preorderTravelvalNode(node.left)
+                    preorderTravelvalNode(node.right)
+                }
+            }
+            preorderTravelvalNode(root)
+            return result
+        }
+        var midOrderTraserval = (root) => {
+            let result = []
+            var midOrderTraservalNode = (node) => {
+                if(node){
+                    midOrderTraservalNode(node.left)
+                    if(node.val !== null) result.push(node.val)
+                    midOrderTraservalNode(node.right)
+                }
+            }
+            midOrderTraservalNode(root)
+            return result
+        }
+        var postOrderTraverse = (root) => {
+            let result = []
+            var postOrderTraverseNode = (node) => {
+                if(node){
+                    postOrderTraverseNode(node.left)
+                    postOrderTraverseNode(node.right)
+                    if(node.val !== null) result.push(node.val)
+                }
+            }
+            postOrderTraverseNode(root)
+            return result
+        }
+        const arr1 = {
+            val: 1,
+            left: null,
+            right: {
+                val: 2,
+                left: { val: 3, left: null, right: null },
+                right: null,
+            },
+        };
+        const arr2 = {
+            val: null,
+            left: null,
+            right: {
+                val: 2,
+                left: { val: 3, left: null, right: null },
+                right: null,
+            },
+        };
+        console.group('前序遍历')
+        console.log(arr1)
+        console.log(preorderTravelval(arr1))
+        console.log(preorderTravelval(arr2))
+        console.groupEnd()
+        console.group('中序遍历')
+        console.log(arr1)
+        console.log(midOrderTraserval(arr1))
+        console.log(midOrderTraserval(arr2))
+        console.groupEnd()
+        console.group('后序遍历')
+        console.log(arr1)
+        console.log(postOrderTraverse(arr1))
+        console.log(postOrderTraverse(arr2))
+        console.groupEnd()
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function numSum (nums , target) {
+            const map = new Map()
+            //将目标数与当前数的差值赋值给map
+            //如果差值在map中已存在则输出差值索引和当前索引
+            for(let i = 0;i<nums.length;i++){
+                // 如果当前元素等于差值
+                if(map.has(nums[i])){
+                    //输出差值的索引和当前索引
+                    return [map.get(nums[i]) , i]
+                } else {
+                    //将差值和当前索引加进map中
+                    map.set(target - nums[i] , i)
+                }
+            }
+        }
+
+        console.log(numSum([1,2,3,4] , 5))
+    </script>
+</body>
+</html>
