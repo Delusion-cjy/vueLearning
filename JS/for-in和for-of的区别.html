@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        console.log('for in遍历所有可枚举属性，包括原型上的属性')
+        console.log('遍历的是key（键名，因此用来遍历数组时会遍历index')
+        console.log('for of遍历数组内元素，因此不包括数组原型上的属性')
+        console.log('for of不能用来遍历对象，适用遍历数/数组对象/字符串/map/set等拥有迭代器对象的集合')
+        console.log('遍历对象用for in 或者Object.keys()')
+        var arr = ['a','b','c','d']
+        for(var key in arr){
+            console.log(key) // 0 1 2 3
+        }
+        for(var value of arr){
+            console.log(value) // a b c d
+        }
+        var obj = {
+            a:1,
+            b:2,
+            c:3
+        }
+        for(var key in obj){
+            console.log(key) // a b c
+        }
+        for(var value of obj){
+            console.log(value) //obj is not iterable
+            // 一个可迭代对象可以是一个内置可迭代类型，如Array, String 或 Map, 一个 generator 生成结果, 或者一个实现了 可迭代协议 的对象
+            //对象不是一个可迭代对象
+        }
+    </script>
+</body>
+</html>

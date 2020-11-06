@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 给定两个单词（beginWord 和 endWord）和一个字典，找到从 beginWord 到 endWord 的最短转换序列的长度。转换需遵循如下规则：
+
+    每次转换只能改变一个字母。
+    转换过程中的中间单词必须是字典中的单词。
+    说明:
+
+    如果不存在这样的转换序列，返回 0。
+    所有单词具有相同的长度。
+    所有单词只由小写字母组成。
+    字典中不存在重复的单词。
+    你可以假设 beginWord 和 endWord 是非空的，且二者不相同。
+    示例 1:
+
+    输入:
+    beginWord = "hit",
+    endWord = "cog",
+    wordList = ["hot","dot","dog","lot","log","cog"]
+
+    输出: 5
+
+    解释: 一个最短转换序列是 "hit" -> "hot" -> "dot" -> "dog" -> "cog",
+        返回它的长度 5。 -->
+
+    <script>
+        const ladderLength = (beginWord, endWord, wordList) => {
+            const wordSet = new Set(wordList)
+            const queue = []
+            queue.push([beginWord,1]) //将开始词和次数1push进数组
+            console.log('函数开始时的queue',...queue)
+            //level意为变换的次数，每改变一次都会使level+1
+
+
+
+            // const [word , level] = queue.shift()
+            //这里相当于声明了一个数组和两个变量
+            // console.log([word , level])
+            // console.log(word)
+            // console.log(level)
+            while (queue.length) {
+                const levelSize = queue.length;//当前level的单词个数（但是目前只有beginword，会在后续的循环中push字符串，同时这个也是while的判断条件
+                for(let i = 0;i<levelSize;i++){ //让当前level的单词逐个出列
+                    //由于push是在数组末尾增加元素，所以用shift方法可以将先push进数组的先弹出
+                    // console.log('queue',...queue)
+                    const [word , level] = queue.shift(); //当前出列单词
+                    if(word == endWord) {
+                        // 如果当前出列单词和结尾词相同则结束迭代
+                        // console.log(level)
+                        return level;
+                    }
+                    for(let i = 0;i < word.length; i++){ // 遍历当前单词的所有字符串
+                        // 对每一个词都确定两个字母更换第三个
+                        for(let c = 97;c <= 122;c++) {
+                            //slice()方法提取出word 0，i的开头，i+1结尾，中间是a-z组成的字符串,就算word是字符串也可以这样玩
+                            const newWord = word.slice(0,i) + String.fromCharCode(c) + word.slice(i + 1); //形成新词
+                            if(wordSet.has(newWord)) { //如果单词表里有这个新词
+                                queue.push([newWord , level + 1]); //作为下一层的词入列
+                                wordSet.delete(newWord); //避免该词重复入列
+                            }
+                        }
+                    }
+                }
+            }
+            return 0; //bfs结束，没有终点
+        }
+        ladderLength("hit","cog",["hot","dot","dog","lot","log","cog"])
+    </script>
+</body>
+</html>
