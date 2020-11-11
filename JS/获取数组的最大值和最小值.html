@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        console.group('----排序法----')
+        var arr1 = [1,2,3,4,5,4,3,2,1]
+        console.log('----排序前----')
+        console.log(arr1)
+        arr1.sort(function(a,b){
+            return a-b
+        })
+        console.log('----排序后----')
+        console.log(arr1)
+        console.log('最大值:arr1[arr1.length-1]')
+        console.log(arr1[arr1.length-1])
+        console.log('最小值:arr1[0]')
+        console.log(arr1[0])
+        console.groupEnd()
+        console.group('----假设法----')
+        var arr2 = [1,2,3,4,5,5,5,3,2,1,5]
+        console.log(arr2)
+        var max = arr2[0]
+        var min = arr2[0]
+        for(let i = 0 ;i<arr2.length;i++){
+            let curr = arr2[i]
+            max = max > curr ? max : curr
+        }
+        for(let j = 0;j<arr2.length;j++){
+            let curr2 = arr2[j]
+            min = min < curr2 ? min : curr2 
+        }
+        console.log('最大值:')
+        console.log(max)
+        console.log('最小值:')
+        console.log(min)
+        console.groupEnd()
+        console.group('----Math.max/min()---apply()方法----')
+        var arr3 = [1,2,2,3,4,5]
+        var max1 = Math.max.apply(null,arr3)
+        var min1 = Math.min.apply(null,arr3)
+        console.log('最大值:max1')
+        console.log(max1)
+        console.log('最小值:min1')
+        console.log(min1)
+        console.groupEnd()
+        console.group('----Math.max/min()---ES6扩展运算符----')
+        var arr4 = [1,2,2,3,4,5,2,3]
+        var max2 = Math.max(...arr4)
+        var min2 = Math.min(...arr4)
+        console.log('最大值:max2')
+        console.log(max2)
+        console.log('最小值:min2')
+        console.log(min2)
+
+    </script>
+</body>
+</html>
