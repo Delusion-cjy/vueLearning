@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        
+            <!-- 子组件的事件通过this.$emit(event,args[])传递到父组件，而父组件会在子组件上用v-on:event="function"监听子组件传递来的事件和值 -->
+            
+
+        <cpn></cpn>
+    </div>
+    <template id="cpn">
+        <div>
+            我是子组件
+        <button @click="btnClick">子访问父按钮</button>
+
+        </div>
+    </template>
+    <template id="ccpn">
+        <div>
+            我是孙组件
+        <button @click="btnClick">子访问父按钮</button>
+
+        </div>
+    </template>
+    <script src="../vue.js"></script>
+    <script>
+        //props中的变量名若是驼峰写法需在组件中绑定传值的时候改成-写法
+        //cMessage -> c-message
+        // 还有个this.$root访问根组件 P69
+        const cpn = {
+            template:'#cpn',
+            data() {
+                return {
+                    name:'name'
+                }
+            },
+            methods: {
+                btnClick(){
+                    // 访问父组件
+                    console.log(this.$parent)
+                },
+            },
+            components:{
+                ccpn:{
+                    template:"#ccpn",
+                    methods:{
+                        btnClick(){
+                    // 访问父组件
+                    console.log(this.$parent)
+                },
+                    }
+                }
+            }
+        }
+        const app = new Vue({
+            el:'#app',
+            data () {
+                return {
+                }
+            },
+            methods: {
+
+            },
+            components: {
+                cpn
+            }
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 基本用法
+        // http://caibaojian.com/es6/destructuring.html
+        {
+            // 数组的解构赋值用法
+            // 模式匹配写法
+            {
+                let [a,b,c] = [1,2,3]
+                // 1,2,3
+                console.log(a,b,c)
+            }
+            // 按照对应位置对变量进行赋值
+            {
+                let [a,[b,c,[d]]] = [1,[2,3,[4]]]
+                // 1 2 3 4
+                console.log(a,b,c,d)
+            }
+            {
+                // 不完全解构
+                // 解构两边可以不对等
+                let [a,b,,c] = [,1,2]
+                // undefined 1 undefined
+                console.log(a,b,c)
+            }
+            {
+                let [a,...z] = [1,2,3,4,5]
+                // 1 ,[2, 3, 4, 5]
+                console.log(a,z)
+            }
+            // 解构需要等号两边类型相同
+            // {
+            //     let [fase] = 1
+            //     // 数组的解构赋值.html:37 Uncaught TypeError: 1 is not iterable
+            //     console.log(fase)
+            // }
+            {
+                // 可以指定默认值
+                var [foo = true] = [];
+                foo // true
+
+                let x,y
+                [x, y = 'b'] = ['a']; // x='a', y='b'
+                console.log(x,y)
+                {
+                    [x, y = 'b'] = ['a', undefined]; // x='a', y='b'
+                    console.log(x,y)
+                }
+                // 默认值可以是函数，且当默认值为函数时，该表达式求值是惰性的，只有取不到值时才会运行
+                {
+                    function f() {
+                    console.log('aaa');
+                    }
+                    // 只有x取不到值时才会运行函数
+                    let [x = f()] = [1];
+                    // 等价于
+                    // let x;
+                    // if ([1][0] === undefined) {
+                    //     x = f();
+                    // } else {
+                    //     x = [1][0];
+                    // }
+                }
+                {
+                    // 默认值可以引用解构赋值的其他变量，但该变量必须已经声明。
+                    let [x = 1, y = x] = [];     // x=1; y=1
+                    let [x = 1, y = x] = [2];    // x=2; y=2
+                    let [x = 1, y = x] = [1, 2]; // x=1; y=2
+                    let [x = y, y = 1] = [];     // ReferenceError
+                }
+
+            }
+
+            // 对象也可以解构赋值
+            {
+                let 
+            }
+        }
+    </script>
+</body>
+</html>

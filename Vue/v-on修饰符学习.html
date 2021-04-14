@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="container" @click="divClick">
+            <!-- .stop防止冒泡 -->
+            <!-- 调用event.stopPropagation() -->
+            <!-- 否则点击按钮1就会使divClick也被唤起 -->
+            <button @click.stop="btnClick">按钮1</button>
+        </div>
+
+            <!-- .prevent调用event.preventDeafult() 防止默认事件触发 -->
+            <a href="http://www.baidu.com" @click.prevent="baiduClick">www.baidu.com</a>
+            <button @click.once="btnClick">按钮2</button>
+    </div>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data () {
+                return {
+                    
+                }
+            },
+            methods: {
+                divClick() {
+                    console.log('divClick click')
+                },
+                btnClick() {
+                    console.log('btnClick click')
+                },
+                baiduClick() {
+                    console.log('baiduClick click')
+                }
+            }
+        })
+    </script>    
+</body>
+</html>

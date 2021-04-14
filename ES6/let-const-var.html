@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="http://caibaojian.com/es6/let.html">http://caibaojian.com/es6/let.html</a>
+    <script>
+
+    // 1、let和const只在所在代码块有效    
+        {
+            let a = 1
+            const b = 2
+            var c =  3
+        }
+        // a,b is not defined
+        // console.log(a)
+        // console.log(b)
+        // c:3
+        // console.log(c)
+    // 2、let和const不存在变量提升 
+        // console.log(foo); // 输出undefined
+        // console.log(bar); // 报错ReferenceError
+
+        var foo = 2;
+        let bar = 2;   
+    // 上面代码中，变量foo用var命令声明，会发生变量提升，即脚本开始运行时，变量foo已经存在了，但是没有值，所以会输出undefined。
+    // 变量bar用let命令声明，不会发生变量提升。这表示在声明它之前，变量bar是不存在的，这时如果用到它，就会抛出一个错误。
+    // 代码解析顺序是
+    // var foo
+    // console.log(foo); // 输出undefined
+    // console.log(bar); // 报错ReferenceError
+    // foo = 2
+    // let bar = 2
+
+    //3、暂时性死区
+    // 只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。
+    // 块级作用域内用let重新声明了全局变量tem，用let声明的tem绑定了该块级作用域，所以在声明前调用该变量会报错
+    // const 同理
+    var tem = 123;
+    if(true) {
+        {
+            console.log(tem) //123
+        } 
+        {
+            let tem = 345
+            console.log(tem) //345
+        }
+        // {
+        //     console.log(tem)
+        //     let tem = 345 // Uncaught ReferenceError: Cannot access 'tem' before initialization
+        // }
+        // {
+        //     tem = 345
+        //     console.log(tem) // Uncaught ReferenceError: Cannot access 'tem' before initialization
+        //     let tem
+        // }
+        
+    }
+
+    // 4、不允许重复声明
+    // (() => {
+    //     let a
+    //     var a
+    // })() // Uncaught SyntaxError: Identifier 'a' has already been declared
+
+    // (() => {
+    //     let a
+    //     let a
+    // })() // Uncaught SyntaxError: Identifier 'a' has already been declared
+
+    // (function fnc(arg) {
+    //     let arg // Uncaught SyntaxError: Identifier 'arg' has already been declared
+    // })()
+
+    // (function arg() {
+    //     let arg // 不报错
+    // })()
+    // (function fnc(arg) {
+    //    let arg = {}
+    //    let arg = 3 // Uncaught SyntaxError: Identifier 'arg' has already been declared
+    //    var arg = 3 // Uncaught SyntaxError: Identifier 'arg' has already been declared
+    // })()
+    // function f() { console.log('I am outside!'); }
+    // (function () {
+    // if (false) {
+    //     // 重复声明一次函数f
+    //     function f() { console.log('I am inside!'); }
+    // }
+
+    // f(); // Uncaught TypeError: f is not a function
+    // }());
+
+    // 5、 do表达式
+    // 块级作用域是一个语句，将多个操作封装在一起，没有返回值。
+    // let x = do {
+    //     let t = 1;
+    //     t * t + 1;
+    // };
+    // console.log(x)
+    // 无效
+
+    // 6、const
+    // const 声明时必须赋值，声明后常量不可更改，块级作用域有效，也存在死区，不可重复声明，将一个对象声明为const可以改变，因为const只保证变量名指向的地址不变
+    // 可以用Object.freeze()方法把常量冻结
+
+    // 7、顶层对象的属性
+
+    // ES5中，顶层对象(window或者global)与全局变量的赋值是同一件事
+    // {
+    //     window.a = 1;
+    //     a // 1  
+
+    //     a = 2;
+    //     window.a // 2
+    // }
+    // ES6中var命令和function声明的全局变量依旧是顶层对象的属性，但是 let，const，class命令声明的全局变量不属于顶层对象属性
+    {
+        var a = 1;
+        // 如果在Node的REPL环境，可以写成global.a
+        // 或者采用通用方法，写成this.a
+        console.log(window.a) // 1
+
+        let b = 1;
+        console.log(window.b) // undefined 
+    }
+    console.log(self === window) // true
+    // Js中的window.parent ,window.top,window.self 
+    // https://www.cnblogs.com/jiqing9006/p/5809713.html
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <!-- 作用域参照所在模板，在父组件渲染就用父组件作用域，因此这里的isShow用的是父组件中的 -->
+
+    
+    <!-- 父组件模板的所有东西都会在父级作用域内编译；子组件模板的所有东西都会在子级作用域中编译 -->
+    <cpn v-show='isShow'></cpn>
+
+</div>
+
+
+
+<template id="cpn">
+    <div>
+        <h2>我是子组件</h2>
+        <!-- 这里的isShow用的是子组件的作用域 -->
+        <h2 v-show="isShow">子组件作用域研究</h2>
+    </div>
+</template>
+<script src="./vue.js"></script>
+<script>
+    const app = new Vue({
+        el:'#app',
+        data () {
+            return {
+                isShow:true
+            }
+        },
+        components: {
+            cpn: {
+                template: '#cpn',
+                data () {
+                    return {
+                        isShow:false
+                    }
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

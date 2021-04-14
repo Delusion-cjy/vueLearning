@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+        .active {
+            color:red
+        }
+        .active1 {
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1  :class="{'active1':isActive1,'active':false}" class="active" >{{message}}</h1>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data() {
+                return {
+                    message:'hello world',
+                    isActive1:true,
+                    isActive:false
+                }
+            },
+        })
+    </script>
+</body>
+</html>

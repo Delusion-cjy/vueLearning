@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
+
+    示例 1:
+
+    输入: s = "anagram", t = "nagaram"
+    输出: true
+    示例 2:
+
+    输入: s = "rat", t = "car"
+    输出: false -->
+<script>
+    //js无法直接判断两个数组是否相等，只能先转换成字符串再判断是否相等
+var isAnagram = function(s, t) {
+    // 解法1--暴力解法
+    const arrS = s.split('').sort().join(',')
+    const arrT = t.split('').sort().join(',')
+    console.log(arrS == arrT)
+    return arrS == arrT
+};
+isAnagram('anagram','nagaram')
+</script>
+</body>
+</html>

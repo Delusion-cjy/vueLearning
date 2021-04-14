@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <cpn :cmessage = 'message'>
+            父组件通过在子组件上绑定的cmessage将自己的message传入子组件
+            父组件给子组件传的值最好保存到子组件的data的变量中
+        </cpn>
+    </div>
+    <template id="cpn">
+        <div>{{cmessage}}</div>
+    </template>
+    <script src="../vue.js"></script>
+    <script>
+        //props中的变量名若是驼峰写法需在组件中绑定传值的时候改成-写法
+        //cMessage -> c-message
+        const cpn = {
+            template:'#cpn',
+            props:['cmessage'],
+            data () {
+                return {
+                    sonMessage:this.cmessage
+                }
+            }
+        }
+        const app = new Vue({
+            el:'#app',
+            data () {
+                return {
+                    message:'hello world'        
+                }
+            },
+            components: {
+                cpn
+            }
+
+        })
+    </script>
+</body>
+</html>

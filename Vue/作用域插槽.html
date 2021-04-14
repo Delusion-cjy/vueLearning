@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 作用域插槽是在父组件中取子组件的数据 -->
+<div id="app">
+    <cpn></cpn>
+    <!-- 作用域插槽用来获取子组件数据 -->
+    <cpn>
+        <!-- 子组件的slot标签中绑定要给父组件的数据 -->
+        <template slot-scope="slot">
+            <!-- 父组件中用slot-scope将绑定的数据赋值给一个变量slot（可更改 -->
+            <!-- 通过slot.data获取到数据并调用 -->
+            <span v-for="item in slot.data">{{item}} &nbsp;</span>
+        </template>
+    </cpn>
+    <cpn></cpn>
+</div>
+
+
+
+<template id="cpn">
+    <div>
+        <h2>我是子组件</h2>
+        <!-- <slot :suiyimingmin="pLanguage">         -->
+            <!-- 这里的data可以随意命名，同时调用的时候slot.data也要改变 -->
+        <slot :data="pLanguage">        
+            <ul>
+                <li v-for="item in pLanguage">{{item}}</li>
+            </ul>
+        </slot>
+
+        <p>---------------------</p>
+    </div>
+</template>
+<script src="./vue.js"></script>
+<script>
+    const app = new Vue({
+        el:'#app',
+        data () {
+            return {
+            }
+        },
+        components: {
+            cpn: {
+                template: '#cpn',
+                data () {
+                    return {
+                        pLanguage: ['JavaScript','java','c#','python']
+                    }
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        
+            <!-- 子组件的事件通过this.$emit(event,args[])传递到父组件，而父组件会在子组件上用v-on:event="function"监听子组件传递来的事件和值 -->
+            
+        <cpn></cpn>
+        <cpn  ref="cpn1"></cpn>
+        <cpn></cpn>
+        <cpn ></cpn>
+        <button @click="btn1Click">$children方法演示</button>
+        <button @click="btn2Click">$refs方法演示</button>
+    </div>
+    <template id="cpn">
+        <div>
+            我是子组件
+        </div>
+    </template>
+    <script src="../vue.js"></script>
+    <script>
+        //props中的变量名若是驼峰写法需在组件中绑定传值的时候改成-写法
+        //cMessage -> c-message
+        const cpn = {
+            template:'#cpn',
+            data() {
+                return {
+                    name:'name'
+                }
+            },
+            methods: {
+                showMessage() {
+                    console.log("showMessage")
+                }
+            }
+        }
+        const app = new Vue({
+            el:'#app',
+            data () {
+                return {
+                }
+            },
+            methods: {
+                btn1Click(){
+                    // this.$children 会返回所有的子组件组成的数组
+                    // 取单个子组件的时候最好不要用这个方法
+                    console.log(this.$children)
+                    //可以调用子组件的方法
+                    this.$children[0].showMessage()
+                    // 可以调用子组件的变量
+                    console.log(this.$children[0].name)
+                    // 子组件也可以调用父组件方法 https://www.cnblogs.com/jin-zhe/p/9523782.html
+                },
+                btn2Click() {
+                    // 这个方法会调用所有有ref属性的组件
+                    console.log(this.$refs)
+                    // 这个方法会调用ref='cpn1'的组件
+                    console.log(this.$refs.cpn1)
+                    // 如果有多个组件都有ref='cpn1'的属性，则会取到最后一个组件
+                }
+            },
+            components: {
+                cpn
+            }
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- https://cn.vuejs.org/v2/guide/mixins.html -->
+
+        <!-- https://blog.csdn.net/qq_28766729/article/details/102910432 -->
+
+        <!-- 混入 (mixin) 提供了一种非常灵活的方式，来分发 Vue 组件中的可复用功能。
+            即将组件的方法等抽离出来，用来以后复用 -->
+
+        <!-- 一个混入对象可以有任意的组件选项，包括created、methods等 -->
+
+        <!-- 组件使用混入对象时，所有混入对象的选项都被混合进组件，包括钩子函数，方法等 -->
+
+        <!-- 当两者有同名选项时，会进行选项合并,会被组件覆盖同名选项，或者合并 -->
+
+        <!-- 钩子函数 -->
+        <!-- 同名钩子函数将合并为一个数组，因此都将被调用。另外，混入对象的钩子将在组件自身钩子之前调用。 -->
+        <!-- 对象 -->
+        <!-- 值为对象的选项，例如 methods、components 和 directives，将被合并为同一个对象。两个对象键名冲突时，取组件对象的键值对。 -->
+
+        <!-- 注意：Vue.extend() 也使用同样的策略进行合并。 -->
+
+
+        <!-- 如果想自定义合并，可以向Vue.config.optionMergeStrategies添加一个函数 -->
+        <!--
+        Vue.config.optionMergeStrategies.myOption = function (toVal, fromVal) {
+            // 返回合并后的值
+          }
+        -->
+        <cpn></cpn>
+    </div>
+    <template id="cpn">
+        <div>
+            我是子组件
+        <button @click="btnClick">子访问父按钮</button>
+
+        </div>
+    </template>
+    <script src="vue.js"></script>
+    <script>
+        //混入对象声明得在组件声明之前，也就是引入需在组件声明之前
+
+        // 混入对象是指抽离出来用作混入的模块，以对象形式展现
+
+
+        // 父子组件同时混入一个混入对象时，父组件先完成混入
+        // 混入对象的钩子函数会和组件的钩子函数进行合并，所以子组件cpn和父组件app的created钩子函数中会有两个函数
+        // 而且 混入对象的钩子函数会在组件自身的钩子函数之前调用
+
+
+        // 声明 混入对象
+        const myMixin = {
+            name:'mixinsObj',
+            data () {
+                return {
+                    message:'混入对象的message',
+                    uniqueMes:'混入对象独有的'
+                }
+            },
+            created () {
+                this.hello()
+            },
+            methods:{
+                hello(){
+                    // 父组件先完成混入
+                    console.log('混入对象成功'+ this.$options.name)
+
+                    // 访问混入对象的data
+                    console.log(this.$data)
+                }
+            }
+        }
+
+
+        // 被混入组件
+        const cpn = {
+            name:'son',
+            template:'#cpn',
+            data() {
+                return {
+                    name:'name',
+                    message:'子组件的message'
+                }
+            },
+            created () {
+            //   console.log('子组件中混入成功')  
+            // 可以输出options中的name，即本组件名
+            //   console.log(this.$options.name)
+
+            },
+            //使用
+            mixins: [myMixin],
+            methods: {
+                btnClick(){
+                    // 访问父组件
+                    console.log(this.$parent)
+                },
+            }
+        }
+
+        const app = new Vue({
+            name:'father',
+            el:'#app',
+            data () {
+                return {
+                    message:'父组件的message'
+                }
+            },
+            created () {
+            //   console.log('父组件中混入成功')
+            //   console.log(this.$options.name)
+            },
+            mixins: [myMixin],
+            methods: {
+
+            },
+            components: {
+                cpn
+            }
+
+        })
+    </script>
+</body>
+</html>

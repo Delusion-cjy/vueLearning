@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 父组件给子组件传的值最好保存到子组件的data的变量中 -->
+        <cpn @itemclick="cpnClick">
+            <!-- 子组件的事件通过this.$emit(event,args[])传递到父组件，而父组件会在子组件上用v-on:event="function"监听子组件传递来的事件和值 -->
+            
+        </cpn>
+    </div>
+    <template id="cpn">
+        <div>
+            <button v-for="item in categories" @click="btnClick(item)">{{item.name}}</button>
+        </div>
+    </template>
+    <script src="../vue.js"></script>
+    <script>
+        //props中的变量名若是驼峰写法需在组件中绑定传值的时候改成-写法
+        //cMessage -> c-message
+        const cpn = {
+            template:'#cpn',
+            data() {
+                return {
+                    categories: [
+                        {id:'aaa',name:'热门推荐'},
+                        {id:'bbb',name:'热门推荐1'},
+                        {id:'ccc',name:'热门推荐2'},
+                        {id:'ddd',name:'热门推荐3'},
+                    ]
+                }
+            },
+            methods: {
+                btnClick(item) {
+                    console.log(item)
+                    this.$emit('itemclick',item)
+                }
+            }
+        }
+        const app = new Vue({
+            el:'#app',
+            data () {
+                return {
+                    message:'hello world'        
+                }
+            },
+            methods: {
+                cpnClick(item){
+                    console.log('1',item)
+                }
+            },
+            components: {
+                cpn
+            }
+
+        })
+    </script>
+</body>
+</html>

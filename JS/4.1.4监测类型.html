@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    有两种方法 typeof和instanceof
+    前者有很方便但有其局限性，null，array等都会返回object
+    更精确的使用instanceof 
+    变量a instanceof Array判断是否变量是否为数组，返回值为false或true
+    <script>
+        var a = [1,2,3,4]
+        console.log(typeof a)
+        console.log(a instanceof Array)
+    </script>
+</body>
+</html>

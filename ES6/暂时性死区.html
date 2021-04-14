@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。
+        // 块级作用域内用let重新声明了全局变量tem，用let声明的tem绑定了该块级作用域，所以在声明前调用该变量会报错
+        // const 同理
+        var tem = 123;
+        if(true) {
+            {
+                console.log(tem) //123
+            } 
+            {
+                let tem = 345
+                console.log(tem) //345
+            }
+            {
+                console.log(tem)
+                let tem = 345 // Uncaught ReferenceError: Cannot access 'tem' before initialization
+            }
+            {
+                tem = 345
+                console.log(tem) // Uncaught ReferenceError: Cannot access 'tem' before initialization
+                let tem
+            }
+            
+        }
+    </script>
+</body>
+</html>

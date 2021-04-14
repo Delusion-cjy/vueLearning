@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window.sessionStorage</title>
+</head>
+<body>
+    <!-- https://developer.mozilla.org/zh-CN/docs/Web/API/Window/sessionStorage
+    该属性允许你访问一个当前源的sessionStorage对象，与localStorage不同，存储在sessionStorage对象的数据会在页面会话结束时清除
+
+    要点1
+    页面会话会在浏览器打开期间一直保持，包括重新加载和恢复页面
+    要点2
+    在新标签或窗口打开一个页面会复制顶级浏览会话的上下文作为新会话的上下文，也就是在该页面打开新页面会继承sessionStorage
+    要点3
+    打开多个相同的URL的tabs页面，会创建各自的sessionStorage对象
+    要点4
+    关闭对应浏览器窗口（Window）/ tab，会清除对应的sessionStorage。 
+    要点5
+    存储在sessionStorage或localStorage中的数据特定于页面的协议。也就是说http://example.com 与 https://example.com的sessionStorage相互隔离。
+    要点6
+    被存储的键值对总是以UTF-16 DOMString 的格式所存储，其使用两个字节来表示一个字符。对于对象、整数key值会自动转换成字符串形式。
+
+    // 保存数据到 sessionStorage
+    sessionStorage.setItem('key', 'value');
+    // 从 sessionStorage 获取数据
+    let data = sessionStorage.getItem('key');
+
+    // 从 sessionStorage 删除保存的数据
+    sessionStorage.removeItem('key');
+
+    // 从 sessionStorage 删除所有保存的数据
+    sessionStorage.clear(); -->
+
+    <script>
+        // 存储key:value
+        sessionStorage.setItem('key','value')
+        console.log(sessionStorage)
+        // 获取key的值
+        let data = sessionStorage.getItem('key');
+        console.log(data)
+        // 删除key的值
+        sessionStorage.removeItem('key');
+        let data1 = sessionStorage.getItem('key');
+        console.log(data1)
+
+    </script>
+</body>
+</html>

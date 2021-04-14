@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Event Loop中，每一次循环称为tick，每一次tick的任务如下：
+
+    执行栈选择最先进入队列的宏任务（一般都是script），执行其同步代码直至结束；
+    检查是否存在微任务，有则会执行至微任务队列为空；
+    如果宿主为浏览器，可能会渲染页面；
+    开始下一轮tick，执行宏任务中的异步代码（setTimeout等回调）。 -->
+    <div>
+        1、选择最先进入队列的宏任务。执行其同步代码直到结束
+        2、有微任务的话执行到微任务，直到微任务为空
+        3、如果宿主是浏览器，渲染页面
+        4、开始下一轮tick，执行宏任务中的异步代码(setTimeout等回调)
+    </div>
+
+        
+    <!-- 
+        macrotask(宏任务) 称为 task ，由宿主发起
+         microtask(微任务) 称为 jobs，由JavaScript自身发起
+
+        宿主为浏览器或node环境
+    -->
+
+    <img src="../事件循环.webp" alt="">
+    <a href="https://www.jianshu.com/p/bfc3e319a96b">https://www.jianshu.com/p/bfc3e319a96b</a>
+    <!-- <script>
+        console.log('start')
+
+        setTimeout(() => {
+        console.log('setTimeout')
+        }, 0)
+
+        new Promise((resolve) => {
+        console.log('promise')
+        resolve()
+        })
+        .then(() => {
+            console.log('then1')
+        })
+        .then(() => {
+            console.log('then2')
+        })
+
+        console.log('end')
+    </script>
+    <script>
+        function first() {
+            console.log('first')
+        }
+        function second() {
+            // console.log('second')
+            first() 
+          }
+        second()
+    </script> -->
+    <!-- <script>
+        setTimeout(() => {
+            //执行后 回调一个宏事件
+            console.log('内层宏事件3')
+        }, 0)
+        console.log('外层宏事件1');
+
+        new Promise((resolve) => {
+            console.log('外层宏事件2');
+            resolve()
+        }).then(() => {
+            console.log('微事件1');
+        }).then(()=>{
+            console.log('微事件2')
+        })
+        console.log('外层宏事件3')
+
+        // 执行顺序
+        // 外层宏事件1
+        // 外层宏事件2
+        // 外层宏事件3
+        // 微事件1
+        // 微事件2
+        // 内层宏事件3
+
+        1、setTimeout是宏任务，首先执行，然后将console.log('内层宏事件3')这一回调函数放入宏任务EventQueue中
+        2、执行到console.log('外层宏事件1');，直接输出
+        3、执行到promise，直接输出console.log('外层宏事件2');，then的回调函数放入微任务Event queue中
+        4、执行到console.log('外层宏事件3')，直接输出
+        5、至此，第一轮宏任务执行完毕，开始执行宏任务下的微任务
+        6、输出console.log('微事件1');，console.log('微事件2')
+        7、开始执行下一轮宏任务，输出 console.log('内层宏事件3')
+    </script> -->
+    <script>
+        
+    </script>
+</body>
+</html>

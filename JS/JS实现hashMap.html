@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // https://www.jianshu.com/p/40b4f5b2508a
+    class HashMap {
+        // 初始化哈希表
+        constructor (size) {
+            this.table = new Array(size)
+            this.size = 0
+        }
+        hashConversion(value) {
+            let keyCode = 0
+            for(let item of value) {
+                keyCode += item.charCodeAt(0)
+            }
+            let key = keyCode % this.table.length
+            return key
+        }
+            // 向哈希表中增值
+            set(value) {
+                let key = this.hashConversion(value)
+                while(this.table[key] !== undefined && this.table[key] !== value){
+                    key++
+                    if(key >= this.table.length) {
+                        throw new Error('已经没有可用空间')
+                    }
+                }
+                if(this.table[key] !== value) {
+                    this.size++
+                    this.table[key] = value
+                }
+            }
+            // 从哈希表中取值
+            get(value) {
+                let key = this.hashConversion(value)
+                while(this.table[key] !== undefined && this.table[key] !== value) {
+                    key++
+                    if(key >= this.table.length){
+                        return undefined
+                    }
+                }
+                return this.table[key]
+            }
+            // 从哈希表中删除数据
+            delete(value) {
+                let key = this.hashConversion(value)
+                while(this.table[key] !== undefined && this.table[key] !== value) {
+                    key++
+                    if(key >= this.table.length){
+                        return false
+                    }
+                }
+                // if(this.table[key] !== undefined) {
+                //     this.table[key] = undefined
+                //     this.size--
+                //     return true
+                // } else {
+                //     return false
+                // }
+                this.table[key] = undefined
+                this.size--
+                return true
+            }
+            // 判断哈希表中存不存在该值
+            has(value) {
+                let key = this.hashConversion(value)
+                while(this.table[key] !== undefined && this.table[key] !== value){
+                    key++
+                    if(key >= this.table.length) {
+                        return false
+                    }
+                }
+                if(this.table[key] !== undefined) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            // 展示哈希表中所有数据
+            showAllData() {
+                let result = []
+                for(let item of this.table) {
+                    if(item !== undefined) {
+                        result.push(item)
+                    }
+                }
+                return result
+            }
+    }
+
+
+    let hashTable = new HashMap(10)
+    hashTable.set('1')
+    hashTable.set('1')
+    hashTable.set('2')
+    console.log('size:' + hashTable.size)
+    console.log(hashTable.showAllData())
+</script>
+</body>
+</html>
