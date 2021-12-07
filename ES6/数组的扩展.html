@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>p1</p>
+    <p>p2</p>
+    <p>p3</p>
+    <p>p4</p>
+    <script>
+        // http://caibaojian.com/es6/array.html
+        // Array.from()可以转换类似数组对象和可迭代对象为数组，类数组对象要求有length属性
+
+        // 所谓类似数组的对象，本质特征只有一点，即必须有length属性。
+
+        // Array.from还可以接受第二个参数，作用类似于数组的map方法，用来对每个元素进行处理，将处理后的值放入返回的数组
+
+        // 还可以传入Array.from的第三个参数，用来绑定this。
+        {   
+            // 类似数组对象和可迭代对象
+            let arrayLike = {
+            '0': 'a',
+            '1': 'b',
+            '2': 'c',
+            length: 3
+            }
+            // ES5
+            let arr1 = [].slice.call(arrayLike)
+            // ES6
+            let arr2 = Array.from(arrayLike)
+        }
+        {
+            // NodeList也是类似数组的对象
+            let ps = document.querySelectorAll('p');
+                console.log('ps',ps)
+                console.log('ps',ps[0])
+                Array.from(ps).forEach(function (p) {
+                console.log(p);
+                });
+            // arguments对象也可以转换成数组
+            function foo() {
+                var args = Array.from(arguments);
+                // ...
+                }
+        }
+        {
+            // 只要有Iterator接口，都可以被Array.from()转换成数组
+        }
+        {
+            // ...扩展运算符也可以，不过调用的是Iterator接口，所以只有有接口才能转换成数组
+        }
+        {
+            // 变量类型检查器
+            function typeCheck() {
+                return Array.from(arguments,value => typeof value)
+            }
+            // console.log(typeCheck('1111',[],{}))
+        }
+
+        // Array()方法
+        {
+            // 一个参数表示创建的空数组长度
+            let arr1 = new Array(1)
+            let arr2 = new Array(5)
+            // 两个及以上参数直接生成数组
+            let arr3 = new Array(1,2)
+            let arr4 = new Array(1,2,3,4,5,5)
+            // console.log('arr1',arr1)
+            // console.log('arr2',arr2)
+            // console.log('arr3',arr3)
+            // console.log('arr4',arr4)
+
+        }
+
+        // Array.of方法用于将一组值，转换为数组。
+        {
+            // Array.of总是返回参数值组成的数组。如果没有参数，就返回一个空数组。
+            Array.of() // []
+            Array.of(undefined) // [undefined]
+            Array.of(1) // [1]
+            Array.of(1, 2) // [1, 2]
+
+            // 代码模拟实现
+            function ArrayOf(){
+                return [].slice.call(arguments);
+                }
+        }
+
+        // 数组实例的copyWithin()
+        {
+            // 数组实例的copyWithin方法，在当前数组内部，将指定位置的成员复制到其他位置（会覆盖原有成员），
+            // 然后返回当前数组。也就是说，使用这个方法，会修改当前数组。
+
+            // Array.prototype.copyWithin(target, start = 0, end = this.length)
+            // target（必需）：从该位置开始替换数据。
+            // start（可选）：从该位置开始读取数据，默认为0。如果为负值，表示倒数。
+            // end（可选）：到该位置前停止读取数据，默认等于数组长度。如果为负值，表示倒数。
+
+            // [1, 2, 3, 4, 5].copyWithin(0, 3)
+                // [4, 5, 3, 4, 5]
+            // 将3号位复制到0号位
+            // [1, 2, 3, 4, 5].copyWithin(0, 3, 4)
+            // // [4, 2, 3, 4, 5]
+
+        }
+    </script>
+</body>
+</html>

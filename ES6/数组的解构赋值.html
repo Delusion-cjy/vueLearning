@@ -14,31 +14,31 @@
             // 数组的解构赋值用法
             // 模式匹配写法
             {
-                let [a,b,c] = [1,2,3]
+                var [a,b,c] = [1,2,3]
                 // 1,2,3
                 console.log(a,b,c)
             }
             // 按照对应位置对变量进行赋值
             {
-                let [a,[b,c,[d]]] = [1,[2,3,[4]]]
+                var [a,[b,c,[d]]] = [1,[2,3,[4]]]
                 // 1 2 3 4
                 console.log(a,b,c,d)
             }
             {
                 // 不完全解构
                 // 解构两边可以不对等
-                let [a,b,,c] = [,1,2]
+                var [a,b,,c] = [,1,2]
                 // undefined 1 undefined
                 console.log(a,b,c)
             }
             {
-                let [a,...z] = [1,2,3,4,5]
+                var [a,...z] = [1,2,3,4,5]
                 // 1 ,[2, 3, 4, 5]
                 console.log(a,z)
             }
             // 解构需要等号两边类型相同
             // {
-            //     let [fase] = 1
+            //     var [fase] = 1
             //     // 数组的解构赋值.html:37 Uncaught TypeError: 1 is not iterable
             //     console.log(fase)
             // }
@@ -47,7 +47,7 @@
                 var [foo = true] = [];
                 foo // true
 
-                let x,y
+                var x,y
                 [x, y = 'b'] = ['a']; // x='a', y='b'
                 console.log(x,y)
                 {
@@ -60,9 +60,9 @@
                     console.log('aaa');
                     }
                     // 只有x取不到值时才会运行函数
-                    let [x = f()] = [1];
+                    var [x = f()] = [1];
                     // 等价于
-                    // let x;
+                    // var x;
                     // if ([1][0] === undefined) {
                     //     x = f();
                     // } else {
@@ -71,17 +71,190 @@
                 }
                 {
                     // 默认值可以引用解构赋值的其他变量，但该变量必须已经声明。
-                    let [x = 1, y = x] = [];     // x=1; y=1
-                    let [x = 1, y = x] = [2];    // x=2; y=2
-                    let [x = 1, y = x] = [1, 2]; // x=1; y=2
-                    let [x = y, y = 1] = [];     // ReferenceError
+                    // var [x = 1, y = x] = [];     // x=1; y=1
+                    // var [x = 1, y = x] = [2];    // x=2; y=2
+                    // var [x = 1, y = x] = [1, 2]; // x=1; y=2
+                    // var [x = y, y = 1] = [];     // ReferenceError
                 }
 
             }
 
             // 对象也可以解构赋值
             {
-                let 
+                var {first , second} = {first:'1111',second:'2222'}
+                // first 1111
+                // second 2222
+                // console.log('first',first);
+                // console.log('second',second);
+            }
+            {
+                // 与数组按照次序排列，变量的取值由位置决定，而对象的属性必须与变量同名才能取到值,与位置无关
+                var {second , third } = {first:'1111',second:'2222'}
+                // console.log('third',third);
+                // console.log('second',second);
+                // third undefined
+                // second 2222
+            }
+            {
+                // 如果变量名不同，则需要另外的写法
+                var { foo: baz } = { foo: 'aaa', bar: 'bbb' };
+                baz // "aaa"            
+            }
+            {
+                // 实际上对象的解构赋值是这样的
+                var { foo: foo, bar: bar } = { foo: "aaa", bar: "bbb" };
+                // 因此
+                // var { foo: baz, bar: bar } = { foo: "aaa", bar: "bbb" };
+                baz // "aaa"    
+                // console.log('baz',typeof baz); string
+                // 即先找到同名属性，再赋值给对应对象
+                // 先找到同名的foo，在将foo的值赋给baz
+                // foo是匹配的模式，baz才是真正被赋值的对象
+
+                
+            }
+            {
+                // 采用上面这种写法时，声明和赋值是一体的
+                var foo;
+                // var {foo} = {foo: 1}; // SyntaxError: Duplicate declaration "foo"
+                
+                ({foo} = {foo: 1}); // 这样就不会报错
+
+                var baz;
+                // var {bar: baz} = {bar: 1}; // SyntaxError: Duplicate declaration "baz"
+
+                ({bar: baz} = {bar: 1}); // 这样就不会报错
+
+            }
+            {
+                console.log('Math',Math)
+
+
+                var obj = {
+                p: [
+                'Hello',
+                { y: 'World' }
+                ]
+                };
+
+                // var { p: [x, { y }] } = obj;
+                // x // "Hello"
+                // y // "World"
+                // p是匹配模式，不会被赋值
+                // console.log('p',p) undefined
+
+                // 赋值p的话应该这样
+                var {p:p, p: [x, { y }] } = obj;
+                // console.log('p',p) 
+
+                var node = {
+                    loc: {
+                        start: {
+                        line: 1,
+                        column: 5
+                        }
+                    }
+                    };
+
+                    var { loc: { start: { line }} } = node;
+                    line // 1
+                    // loc  // error: loc is undefined
+                    // start // error: start is undefined
+
+            }
+            {
+                var obj = {};
+                var arr = [];
+
+                ({ foo: obj.prop, bar: arr[0] } = { foo: 123, bar: true });
+
+                obj // {prop:123}
+                arr // [true]
+
+                // 原理跟上面一样，foo 和 bar只是匹配模式，找到相同的匹配模式后，对应的变量进行赋值
+            }
+            {
+                // 对象解构赋值时也可以设置默认值
+                // var {x=3} = {}
+                // console.log('x',x) 3
+
+                // let {a:y=3} = {a:4}
+                // console.log('a',a) 之前声明的1
+                // console.log('y',y) 4
+                let {a:y=3} = {a:null}
+                // console.log('y',y) null
+                // 只有严格等于undefined才会使用默认值
+            }
+            {
+                // let {sin , cos, log} = Math
+                // console.log('sin',sin(3.1415926))
+                // console.log('cos',cos(3.1415926))
+                // console.log('log',log(3))
+                let {log} = console
+                // log('111')
+                console.log('console',console)
+            }
+            {
+                var arr = [1, 2, 3];
+                var {0 : first, [arr.length - 1] : last} = arr;
+                first // 1
+                last // 3
+                // 数组也是特殊的对象，可以进行对象属性的解构赋值
+            }
+            {
+                // let [a,b,c,d,e] = 'hello'
+                // console.log('a',a)
+                // console.log('b',b)
+                // console.log('c',c)
+                // console.log('d',d)
+                // console.log('e',e)
+                let {0:a,1:b,2:c,3:d,4:e} = 'hello'
+                // console.log('a',a)
+                // console.log('b',b)
+                // console.log('c',c)
+                // console.log('d',d)
+                // console.log('e',e)
+                // 字符串也可以用对象的解构赋值
+                // let {length:len} = 'aaaaaa'
+                // console.log('len',len) 6
+            }
+            {
+                // 解构赋值时如果右边是布尔值和数字，会转换成对象
+                // let {toString:s} = 123
+                // console.log('s',s)
+                // console.log('s',s == Number.prototype.toString) true
+                // console.log('s',s instanceof Object) 被转换成了对象
+                // let {toString:x} = true
+                // console.log('x', x instanceof Boolean) false
+                // console.log('x', x instanceof Object) true
+                // 不过只有右边可以转换成对象时才能转换 null和undefined不能转换所以不行
+            }
+            {
+                // 函数解构赋值
+                function add([x,y,z]) {
+                    let result = 0
+                    console.log('arguments',arguments);
+                    return arguments[0].forEach(item => {
+                        result += item
+                        console.log('result',result)
+                    })
+                    // return console.log(x+y+z) NaN
+                  }
+                //   add([1,2,3]) 1 3 6
+                // add([1,2]) 
+
+                // 函数参数的解构也可以用默认值
+                function sub([x,y,z]) {
+                    let result = 0
+                    console.log('arguments',arguments);
+                    return arguments[0].forEach(item => {
+                        result += item
+                        console.log('result',result)
+                    })
+                  }
+
+                  let s = ''
+                  console.log('s',s.length == false)
             }
         }
     </script>

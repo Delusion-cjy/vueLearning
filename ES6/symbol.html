@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var s = Symbol()
+        console.log('String(s)',String(s))
+        s = 'aaaa'
+        console.log('String(s)',String(s))
+
+        var size = Symbol('size');
+        
+        class Collection {
+            constructor() {
+                this[size] = 0;
+            }
+
+            add(item) {
+                this[this[size]] = item;
+                this[size]++;
+            }
+
+            static sizeOf(instance) {
+                return instance[size]
+            }
+        }
+
+        var x = new Collection();
+        // console.log('Collection.sizeOf(x)',Collection.sizeOf(x)) 
+        // 0
+    </script>
+</body>
+</html>

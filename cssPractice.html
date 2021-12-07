@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <span>
+        <div>
+            aaa
+        </div>
+    </span>
+    <div class="abc">
+        <span>span:aaaaaa</span>
+        <p>p:bbbbbb</p>
+        <div>div:cccccc</div>
+        <span>
+            <ul>
+                <li>li:dddddd</li>
+                <li>li:eeeeee</li>
+            </ul>
+        </span>
+        <span>
+            <ul>
+                <li>li:ffffff</li>
+                <li>li:gggggg</li>
+            </ul>
+        </span>
+    </div>
+    <hr>
+    <div class="abc">
+        <span>span:aaaaaa</span>
+        <p>p:bbbbbb</p>
+        <div>div:cccccc</div>
+        <span>
+            <ul>
+                <li>li:dddddd</li>
+                <li>li:eeeeee</li>
+            </ul>
+        </span>
+        <span>
+            <ul>
+                <li>li:ffffff</li>
+                <li>li:gggggg</li>
+            </ul>
+        </span>
+    </div>
+    <hr>
+    <span class="abc">span:abc</span>
+</body>
+<style>
+/* 空格 => 后代选择器 */
+/* .abc span{
+    background-color: yellow;
+} */
+
+/* 伪类 :nth-child(),从1开始计数 */
+/* .abc :nth-child(2) {
+    background-color: yellow;
+} */
+
+/* 子代选择器 >,只选中子代 */
+/* .abc>:nth-child(2) {
+    background-color: yellowgreen;
+} */
+
+/* 只选中span标签中class为abc */
+/* span.abc {
+    background-color: yellow;
+} */
+
+/* 伪类,:nth-of-type选中第几个父元素 */
+/* .abc:nth-of-type(2)>:nth-child(2) {
+    background-color: yellow;
+} */
+
+/* test */
+/* 选中第一个span */
+/* div.abc:nth-of-type(1) span{
+    background-color: yellow
+} */
+
+/* 选中第四个li */
+/* div.abc:nth-of-type(1) span:nth-of-type(3) li:nth-of-type(2) {
+    background-color: yellow
+} */
+
+/* 选中第二个cccccccc */
+/* div.abc:nth-of-type(2)>div {
+    background-color: yellow;
+} */
+</style>
+</html>

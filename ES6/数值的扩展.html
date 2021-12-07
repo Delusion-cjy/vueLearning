@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // http://caibaojian.com/es6/array.html
+
+        
+        // 1、二进制和八进制的新写法
+            // 二进制前缀0b
+            // 0b111110111 === 503
+            // 八进制前缀0o
+            // 0o767 === 503
+
+            // let num = '0b111110111'
+            // 若num为数字形式，则显示时自动转为十进制
+            // let num = 0b111110111
+            // console.log(`二进制 ${num} 转十进制 `,Number('0b111110111'))
+        // 2、检测数值是否有限和是否为NaN
+            // 检测是否有限
+            //      Number.isFinite()
+            // 检测是否为NaN
+            //      Number.isNaN()
+            // ES5中用法
+                // 为全局用法
+            //      isFinite()
+            //      isNaN()
+            // 区别：ES5中先调用Number()将非数值的值转为数值，再进行判断
+            //          新方法只对数值有效，非数值一律为false
+                    // console.log('有限的数值13',Number.isFinite(15))     
+                    // console.log('true/0是NaN',Number.isNaN('true'/0))     
+        // 3、Number.parseInt(), Number.parseFloat()
+            // 行为完全不变，移植到Number中为逐步减少全局性方法，使得语言逐步模块化
+        // 4、Number.isInteger()
+            // 整数和浮点数是同样的储存方法
+            // 在JavaScript中1.0和1是一样的，所以isInteger都会返回true
+                // console.log(Number.isInteger(1.11)); 
+        // 5、Number.EPSILON
+                // 极小常量，为浮点数计算设置一个误差范围，小于该范围就认为得到正确结果
+                // 实质是一个可以接受的误差范围 
+                // console.log('Number.EPSILON',Number.EPSILON);
+        // Number.isSafeInteger() 判断数值是否在安全数值范围内
+        // JavaScript能正确表示的整数范围在-2^53到+2^53之间,超出范围无法正确表示
+                // console.log('2^53',Math.pow('2',53))
+                // console.log('2^53',Math.pow('2',53)+1)
+                // console.log('Number.isSafeInteger(Math.pow(\'2\',53))',Number.isSafeInteger(Math.pow('2',53)))
+                // 引入 Number.MAX_SAFE_INTEGER，Number.MIN_SAFE_INTEGER 常量判断是否在边界内
+                // console.log('Number.MAX_SAFE_INTEGER',Number.MAX_SAFE_INTEGER)
+                // console.log('Number.MIN_SAFE_INTEGER',Number.MIN_SAFE_INTEGER)
+        
+    </script>
+</body>
+</html>

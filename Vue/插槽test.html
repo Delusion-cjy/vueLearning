@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <cpnwithslot>
+            有插槽
+            <br>
+            <!-- 插槽和模板的其他地方一样可以访问相同的实例property -->
+            {{`可以访问模板的数据  `+ this.$data.message}}
+            <br>
+            <!-- 但是访问不到子组件的作用域 -->
+            {{'可以访问的作用域  '+this.$options.name}}
+
+            <br>
+            <br>
+            <br>
+            <div>记住，父级模板里的所有内容都是在父级作用域中编译的；子模板里的所有内容都是在子作用域中编译的。</div>
+            <template v-slot:header>
+                <h1>具名插槽</h1>
+            </template>
+        </cpnwithslot>
+
+        <!-- slot可以在组建中传入默认值 -->
+        <cpnwithslot></cpnwithslot>
+
+
+        <cpnwithoutslot>
+            插槽
+        </cpnwithoutslot>
+    </div>
+
+
+    <!-- 有插槽的组件中slot标签可以被组件标签内插入的内容替换 -->
+    <template id="cpnwithslot">
+        <div>
+            <div>{{cmessage}}</div>
+            <!-- 也可以在slot标签中放入默认内容 -->
+            <slot>slot中的默认内容</slot>
+            <h1>
+                <!-- slot命名为header，组件传入的时候用v-slot:header就可以传入到该插槽中，不命名默认传到无命名的插槽中 -->
+                <!-- 且v-slot只能添加在template标签中 -->
+                <slot name="header"></slot>
+            </h1>
+            <h1>
+                <slot name="footer"></slot>
+            </h1>
+        </div>
+    </template>
+
+
+    <!-- 没有slot元素的组件，该组件起始标签和结束标签之间的内容都会被抛弃 -->
+    <template id="cpnwithoutslot">
+        <div>
+            <div>{{cmessage}}</div>
+        </div>
+    </template>
+    <script src="vue.js"></script>
+    <script>
+        // 组件不能用驼峰命名
+        //cMessage -> c-message
+        const cpnwithslot = {
+            name:'cpnwithslot',
+            template:'#cpnwithslot',
+            props:['cmessage'],
+            data () {
+                return {
+                    sonMessage:this.cmessage
+                }
+            }
+        }
+        const cpnwithoutslot = {
+            name:'cpnwithoutslot',
+            template:'#cpnwithoutslot',
+            props:['cmessage'],
+            data () {
+                return {
+                    sonMessage:this.cmessage
+                }
+            }
+        }
+        const app = new Vue({
+            name:'father',
+            el:'#app',
+            data () {
+                return {
+                    message:'这里是模板的message'        
+                }
+            },
+            components: {
+                cpnwithslot,cpnwithoutslot
+            }
+
+        })
+    </script>
+</body>
+</html>

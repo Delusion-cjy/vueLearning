@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes/static -->
+    <script>
+    // 类（class）通过 static 关键字定义静态方法。不能在类的实例上调用静态方法，而应该通过类本身调用。
+    // 这些通常是实用程序方法，例如创建或克隆对象的功能。
+        class ClassWithStaticMethod {
+
+            static staticProperty = 'someValue';
+            static staticMethod() {
+            return 'static method has been called.';
+            }
+        
+        }
+        
+        console.log(ClassWithStaticMethod.staticProperty);
+        // output: "someValue"
+        console.log(ClassWithStaticMethod.staticMethod());
+        // output: "static method has been called."
+      
+    </script>
+
+    静态方法调用直接在类上进行，不能在类的实例上调用。静态方法通常用于创建实用程序函数。
+    <script>
+    // 静态方法调用同一个类中的其他静态方法，可使用 this 关键字。
+    class StaticMethodCall {
+        static staticMethod() {
+            return 'Static method has been called';
+        }
+        static anotherStaticMethod() {
+            return this.staticMethod() + ' from another static method';
+        }
+    }
+     // 在另一个类中调用类中的静态方法
+    class StaticMethodCallDemo {
+        static testFuncClassName() {
+            return StaticMethodCall.staticMethod() + '在另一个类中用CLASSNAME.STATIC_METHOD_NAME()调用类的静态方法';
+        }
+        static testFuncStructor() {
+            return this.constructor.staticMethod() + '在另一个类中用this.constructor.STATIC_METHOD_NAME()调用类的静态方法';
+        }
+        static testFuncAlone() {
+            return '调用类中的静态方法';
+        }
+    }
+
+    StaticMethodCall.staticMethod();
+    // 'Static method has been called'
+
+    StaticMethodCall.anotherStaticMethod();
+    // 'Static method has been called from another static method'
+    console.log(StaticMethodCallDemo.testFuncClassName())
+    //  Static method has been called 在另一个类中用CLASSNAME.STATIC_METHOD_NAME()调用类的静态方法
+    // console.log('StaticMethodCallDemo.testFuncStructor();',StaticMethodCallDemo.testFuncStructor())
+    // 失败了
+    console.log(StaticMethodCallDemo.testFuncAlone())
+    // 调用类中的静态方法
+    </script>
+    
+    非静态方法中，不能直接使用 this 关键字来访问静态方法。
+    而是要用类名来调用：CLASSNAME.STATIC_METHOD_NAME() ，
+    或者用构造函数的属性来调用该方法： this.constructor.STATIC_METHOD_NAME().
+    <script>
+    class StaticMethodCallAlpha {
+        constructor() {
+            console.log(StaticMethodCallAlpha.staticMethod());
+            // 'static method has been called.'
+            console.log(this.constructor.staticMethod());
+            // 'static method has been called.'
+        }
+        static staticMethod() {
+            return 'static method has been called.';
+        }
+    }
+    // var kkk = new StaticMethodCallAlpha()
+    // 创建新的类就会调用构造体中的方法
+    </script>
+</body>
+</html>

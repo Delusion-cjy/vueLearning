@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // http://caibaojian.com/es6/string.html
+        // 字符串遍历接口
+        {
+            let str = 'abcdefg'
+            for(let i of str){
+                // 输出单个字符
+                // console.log('i',i)
+
+                // 可以这样获取字符索引
+                // console.log('i',str.indexOf(i))
+            }
+        }
+        {
+            // charAt()根据索引获取字符
+            let str = 'abcdefg'
+            let chineseStr = '八垫成的风格'
+            let type = str.charAt(0)
+            let longtype = chineseStr.charAt(1)
+        //    console.log('根据索引获取字符串中字符', longtype) 
+        }
+
+        {
+            let str = 'abcdefghigklmn'
+            let abc = 'abc'
+            let abd = 'abd'
+            let kl = 'kl'
+
+            let test = str.indexOf(abc)
+            let test1 = str.indexOf(abd)
+            let test2 = str.indexOf(kl)
+            // console.log('在字符串中找到了返回索引',test)
+            // console.log('在字符串中找到了返回索引',test2)
+            // console.log('没找到返回-1',test1)
+
+            // 第一个参数为要查找的字符串，第二个为开始搜索位置
+            // includes()
+            // console.log('str.includes(abc)',str.includes(abc)) 
+            // console.log('str.includes(abc,0)',str.includes(abc,0)) 
+            // console.log('str.includes(abd)',str.includes(abd))
+
+            // startsWith()
+            // console.log('str.startsWith(abc)',str.startsWith(abc))
+            // console.log('str.startsWith(abc,2)',str.startsWith(abc,2))
+
+            // endWith()
+            // console.log('str.endWith(kl)',str.endWith(kl))
+            // console.log('str.endWith(kl,2)',str.endWith(kl,2))
+
+        }
+
+        {
+            // repeat()
+            let str = 'abc'
+            str = str.repeat(10)
+            // console.log('str.repeat(10)',str)
+            // 参数会先取整，负数会报错
+        }
+
+        {
+            // padStart(),padEnd()
+            // 字符串补长
+            let str = 'abc'
+            // 第一个参数为补长后的长度，第二个参数为补长所用字符串
+            // padStart()从左侧开始补长，padEnd()从右侧开始
+            let textStart = str.padStart(10,'x')
+            let textEnd = str.padEnd(10,'x')
+            // console.log('textStart',textStart)
+            // console.log('textEnd',textEnd)
+        }
+
+        {
+
+        }
+
+        {
+            // 标签模板
+            let a = '10'
+            let b = '20'
+            function tab(s,v1,v2) {
+                console.log('arguments',arguments)
+                console.log(s)
+                console.log(v1)
+                console.log(v2)
+                return 'OK'
+            }
+            
+            // tab`Hello ${a+b} world ${a-b}`
+        }    
+    </script>
+    
+</body>
+</html>

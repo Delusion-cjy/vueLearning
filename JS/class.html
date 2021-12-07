@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes
+        // https://www.runoob.com/w3cnote/es6-class.html
+
+        // class关键字定义类，本质是function
+        // 和函数不同，类的声明不会被提升，因此必须先声明后使用
+        let Example = class {
+            // constructor方法用于创建和初始化一个Class对象，一个类只能有一个
+            // 可以通过super关键字调用父类的构造函数
+            constructor(a='构造体内部函数运行') {
+                this.a = a;
+                console.log(`Example${this.a}`)
+            }
+        }
+        // 两种类定义的方式等价
+        let Example1 = class Example1 {
+            constructor(a='构造体内部函数运行') {
+                this.a = a;
+                console.log(`Example1${this.a}`)
+            }
+            showMessage() {
+                console.log('类中的方法不需要function关键字')
+            }
+        }
+            let a = new Example('类声明时传入的变量');
+            // Example类声明时传入的变量
+            let b = new Example1();
+            // Example1构造体内部函数运行
+            b.showMessage()
+            // 类中的方法不需要function关键字
+
+        // 向类中添加方法的两种途径
+        Example1.prototype.addMethods1 = function() {
+            console.log('CLASS_NAME.prototype.FUNCTION_NAME可以通过该方法覆盖/初始化添加方法')
+        }
+        Object.assign(Example1.prototype,{
+           addMethods2() {
+                console.log('Object.assign(CLASS_NAME.prototype,function name() {})方法也可以添加/覆盖方法')
+            }
+        })
+            b.addMethods1()
+            // CLASS_NAME.prototype.FUNCTION_NAME可以通过该方法覆盖/初始化添加方法
+            b.addMethods2()
+            // Object.assign(CLASS_NAME.prototype,function name() {})方法也可以添加/覆盖方法
+    </script>
+</body>
+</html>

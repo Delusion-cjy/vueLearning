@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 首先声明一个生成器函数
+        function* main() {
+            console.log('starting* main()');
+            yield; // 暂停，不许往下走了
+            console.log('continue yield 1');
+            yield; // 暂停，又不许往下走了
+            console.log('continue yield 2');
+        }
+
+        // 构造处一个迭代器it
+        let it = main();   // 进行实例化之后，main()里的代码不会主动执行
+
+        // 调用next()启动*main生成器，表示从当前位置开始运行，停在下一个yield处
+        it.next(); // 输出 starting* main()     =>     {value: undefined, done: false}
+
+        // 继续往下走
+        it.next(); // 输出 continue yield 1     =>     {value: undefined, done: false}
+
+        // 再继续往下走
+        it.next(); // 输出 continue yield 2     =>     {value: undefined, done: true}
+            
+    </script>
+</body>
+</html>

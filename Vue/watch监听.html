@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="vue.js"></script>
+<body>
+    <div id="app">
+        <div>
+            <button @click="pushArr">Push Arr</button>
+            <button @click="changeArr">Change Arr</button>
+            <button @click="watchArr">Watched Arr</button>
+            <button @click="watchObjInArr">Watched Obj In Arr</button>
+        </div>
+        <div>
+            <button @click="changeObj">Change Obj</button>
+        </div>
+    </div>
+</body>
+<script>
+    const vm = new Vue({
+        el:'#app',
+        data() {
+            return {
+                arr: [{a:'1'}],
+                obj: {},
+                str: ''
+            }
+        },
+        watch: {
+            'arr':function() {
+                console.log('arr',this.arr)
+            }
+        },
+        created () {
+            // this.arr.push()
+        },
+        methods: {
+            // 监听数组可以监听到用push方法进行的数组改变
+            // 但是监听不到 直接通过索引和length改变数组的行为，除非用$set方法
+            // 数组中嵌套的对象也监听不到
+            pushArr() {
+                let date = new Date()
+                this.arr.push(date.getSeconds())
+            },
+            changeArr() {
+                let range = this.arr.length;
+                let date = new Date();
+                let randomNum = Math.floor(Math.random(range));
+                this.arr[randomNum] = date.getSeconds();
+            },
+            watchArr() {
+                let range = this.arr.length;
+                let date = new Date();
+                let randomNum = Math.floor(Math.random()*range);
+                // this.arr.splice([randomNum],1)
+                this.$set(this.arr, [randomNum] , date.getSeconds())
+                // this.$set(this.arr, 0 , '10')
+            },
+            watchObjInArr() {
+                let date = new Date()
+                this.$nextTick(() => {
+                    this.$set(this.arr[0],'a',date.getSeconds())
+                })
+                console.log('this.arr[0]',this.arr[0].a)
+                // this.arr[0].a = date.getSeconds();
+            },
+            changeObj() {
+
+            }
+        },
+        
+    })
+</script>
+</html>

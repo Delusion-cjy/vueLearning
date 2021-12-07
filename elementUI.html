@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        element-ui组件中 组件方法为，默认传入两个参数val1,val2，如果需要传入另外的参数则
+        @check='handleTreeCheckChange'
+        改写为
+        @check="(val1,val2,par1,par2) => handleTreeCheckChange(val1,val2,'1111','22222')"
+        val1和val2名字无所谓
+    </script>
+</body>
+</html>

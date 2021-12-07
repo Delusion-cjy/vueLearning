@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols
+        // https://zhuanlan.zhihu.com/p/366526149
+        // https://blog.csdn.net/wulong710/article/details/115211172
+
+
+        // 迭代器模式主要的思想就是在不暴露对象内部结构的同时可以按照一定顺序访问对象内部的元素。
+        // 用于访问对象内部元素
+
+        // 迭代器例子
+            // 实现迭代器
+        // 数组迭代器
+        let eachArr = function(arr , fn) {
+            let i = 0;
+            len = arr.length;
+            for(let i = 0;i<len;i++) {
+                if(fn.call(this, i, arr[i]) === false) {
+                    break
+                }
+            }
+        }
+        // eachArr([1,2,3,4] ,(index,value) => {
+        //     console.log(index, value)
+        // })
+        // 对象迭代器
+        let eachObj = function(obj,fn) {
+            for(key in obj) {
+                if(fn.call(this,key,obj[key]) === false) {
+                    break
+                }
+            }
+        }    
+        eachObj({1:'1',2:'2'},(key,value) => {
+            console.log(key, value)
+        })
+
+        // (index, value) => {
+        //     console.log(index,value)
+        //     console.log('arguments',arguments)
+        // }
+
+        // let someString = 'Hello'
+        // console.log('typeof someString[Symbol.iterator]:',typeof someString[Symbol.iterator]) 
+        
+        // console.log('someString[Symbol.iterator]:',someString[Symbol.iterator])
+
+        // let iterator = someString[Symbol.iterator]()
+
+        // console.log('iterator:',iterator)
+        // console.log('iterator + \'\':',iterator + '')
+
+        // console.log('iterator',iterator.next())
+        // console.log('iterator',iterator.next())
+        // console.log('iterator',iterator.next())
+        // console.log('iterator',iterator.next())
+        // console.log('iterator',iterator.next())
+        // console.log('iterator',iterator.next())
+        // console.log('iterator',iterator.next())
+        // console.log('------------------------------')
+
+        // console.log('someString.next()',someString.next())
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="parent" style="width: 500px;height:500px;background-color: bisque;">
+        <div class="child" style="width: 100px;height:100px;background-color:aqua;"></div>
+    </div>
+    <style>
+        /* 1 水平居中*/
+        /* .parent {
+            width: 500px;
+            height: 500px;
+            background-color: aqua;
+        }
+        .child {
+            width: 100px;
+            height: 100px;
+            margin: auto;
+            background-color: beige;
+        } */
+        /* 2 垂直居中 */
+            /* 2.1绝对定位1 */
+             /* margin-top 一半height */
+            /*margin-left 一半width */
+            /* .parent {
+                position: relative;
+            }
+            .child {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                margin-top: -50px; 
+                margin-left: -50px;
+            } */
+             /* 2.2 绝对定位2   */
+             /* .parent {
+                 position: relative;
+             }
+             .child {
+                 position: absolute;
+                 top: 50%;
+                 left: 50%;
+                 transform: translate(-50%,-50%);
+             } */
+             /* 2.3 绝对定位 */
+             /* .parent {
+                 position: relative;
+             }
+             .child {
+                 position: absolute;
+                 top: 0;
+                 left: 0;
+                 right: 0;
+                 bottom: 0;
+                 margin: auto;
+             } */
+        /* 3 块级元素 */
+        /* .parent {
+            border: 1px solid black;
+            display: table;
+        }
+        .child {
+            display: table-cell;
+            vertical-align: middle;
+        } */
+        /* 4 flex布局 */
+        .parent {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</body>
+</html>

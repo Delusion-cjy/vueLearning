@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div class="content">
+            <input @oninput="getValue()" />
+        </div>
+        <div v-for="(item,index) in treeList">{{item}}</div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el:'#app',
+            data() {
+                return {
+                treeListTmp: [],
+                treeList: [
+                    {
+                    name: "飞机1",
+                    hasChild: true,
+                    id: 1,
+                    children: [
+                        {
+                        name: "数据1-1",
+                        hasChild: true,
+                        id: 2,
+                        children: [
+                            {
+                            name: "数据1-1-1",
+                            hasChild: false,
+                            id: 3,
+                            },
+                        ],
+                        },
+                        {
+                        name: "火箭1-2",
+                        hasChild: false,
+                        id: 4,
+                        },
+                    ],
+                    },
+                    {
+                    name: "数据2",
+                    hasChild: true,
+                    id: 5,
+                    children: [
+                        {
+                        name: "轮船2-1",
+                        hasChild: true,
+                        id: 6,
+                        children: [
+                            {
+                            name: "数据2-1-1",
+                            hasChild: false,
+                            id: 7,
+                            },
+                        ],
+                        },
+                        {
+                        name: "数据2-2",
+                        hasChild: false,
+                        id: 8,
+                        },
+                    ],
+                    },
+            ],
+            };
+        },
+        created() {},
+        mounted () {
+            window.vue = this;  
+        },
+        methods: {
+            getValue(msg) {
+                this.treeList = [];
+                let treeListTmp = JSON.parse(JSON.stringify(this.treeListTmp));
+                let tmp = msg
+                    ? this.rebuildData(msg, treeListTmp)
+                    : JSON.parse(JSON.stringify(treeListTmp));
+                this.treeList.push(...tmp);
+            },
+            rebuildData(value, arr) {
+                if (!arr) {
+                        return [];
+                    }
+                let newarr = [];
+                if (Object.prototype.toString.call(arr) === "[object Array]") {
+                    arr.forEach((element) => {
+                    if (element.name.indexOf(value) > -1) {
+                        const ab = this.rebuildData(value, element.children);
+                        const obj = {
+                        ...element,
+                        children: ab,
+                        };
+                        newarr.push(obj);
+                    } else {
+                        if (element.children && element.children.length > 0) {
+                        const ab = this.rebuildData(value, element.children);
+                        const obj = {
+                            ...element,
+                            children: ab,
+                        };
+                        if (ab && ab.length > 0) {
+                            newarr.push(obj);
+                        }
+                        }
+                    }
+                    });
+                }
+                return newarr;
+                },
+            },
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <!-- <a href=""></a> -->
+        <button onclick="downLoadFun()">download</button>
+    </div>
+  <script>
+    //   import img from '../test111.jpg'
+    //   let imgurl = '../test111.jpg';
+
+      function downLoadFun(filename,file) {
+        // 请求到文件后用window.URL.createObjectURL(file)转换成URL再通过a标签下载
+        // let url = window.URL.createObjectURL(file);
+        let url = '../test111.jpg';
+        this.aDownLoadEvent('测试111.jpg',url)
+      }
+      function aDownLoadEvent(fileName,downLoadURL) {
+        const link = document.createElement('a');
+        link.href = downLoadURL;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    //   downLoadFun()
+  </script>
+</body>
+</html>

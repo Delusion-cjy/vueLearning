@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+</style>
+<body>
+    <div id="app">
+        <span class="test1">123123</span>
+        <span class="test2">123123</span>
+        <div class="div1"></div>
+    </div>
+    <script>
+        let arr = [];
+        let arr1 = [1,2,3]
+        let obj = {a:1,b:2}
+        let obj2 = {...obj}
+        arr.push(arr1)
+        console.log(...arr1)
+        console.log([...arr1])
+        let eleApp = document.getElementById('app')
+        let eleTest1 = document.getElementsByClassName('test1')
+        let eleTest2 = document.getElementsByClassName('test2')
+        // var divs = document.getElementsByTagName("div");
+        // for(var i = 0 ; i < divs.length; i++){
+        //     document.body.appendChild(document.createElement("div"));
+        // }
+    </script>
+</body>
+
+</html>

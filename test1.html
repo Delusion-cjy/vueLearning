@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr = [
+            {
+                a:'1',
+                b:'2',
+                children:[
+                    {
+                        a:'1.1',
+                        b:'2.1'
+                    },
+                    {
+                        a:'1.2',
+                        b:'2.2'
+                    }
+                ]
+            },
+            {
+                a:'3',
+                b:'4',
+                children:[
+                    {
+                        a:'3.1',
+                        b:'4.1'
+                    },
+                    {
+                        a:'3.2',
+                        b:'4.2'
+                    }
+                ]
+
+            },
+            {
+                a:'5',
+                b:'6',
+                children:null
+            }
+        ]
+        let cache = []
+        let arr2 = arr.findIndex((value) => {
+            if(value.children != null && value.children.length > 0) {
+                value.children.findIndex((value1) => {
+                    cache.push(value1)
+                    return value1.a == '1.1'
+                })
+            } else {
+                return value.a == '1.1'
+            }
+        })
+        console.log('arr2',arr2)
+        console.log('cache',cache)
+        function treeSearch(tree,queryString) {
+            let cacahe = []
+            tree.findIndex((value) => {
+                
+            })
+        }
+    </script>
+</body>
+</html>

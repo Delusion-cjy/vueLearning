@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // Object.freeze() 方法可以冻结一个对象
+    
+    // 一个被冻结的对象再也不能被修改
+    // 不能添加、修改、删除属性，不能更改已有属性的配置，对象的原型也不能修改
+    var obj = {
+        a:''
+    }
+    var obj1 = {
+        a: '',
+        b: {}
+    }
+    // 浅冻结
+    var o = Object.freeze(obj);
+    // 这个方法返回传递的对象，而不是创建一个被冻结的副本。
+    o === obj // true
+
+
+    obj.a = '4' // 严格模式会报错
+    obj //{a:''}
+    delete obj.a // {a:''} 删除对象属性
+
+    Object.isFrozen(obj) // true 判断是否被冻结
+// ---------------------------------------------------------------------
+    Object.freeze(obj1);
+    // 当冻结的对象的整个对象状态（对其他对象的值和引用）是固定的时候，对象时不可变的
+    // 但是当对象属性为对象或函数时 还是可以更改
+    obj1.a = '1' 
+    obj1.b.a = '1' // {a:'',b:{a:'1'}}
+    // 所以需要递归冻结
+    function deepFreeze(obj) {
+        let propsName = Object.getOwnPropertyNames(obj);
+        propsName.forEach(item => {
+            let prop = obj[item]
+            if( typeof prop == 'object' && prop != null) {
+                deepFreeze(prop)
+            }
+        })
+        return Object.freeze(obj);
+    }
+    // 深冻结
+    deepFreeze(obj1)
+    obj1.b.a = '1000' // {a:'',b:{a:'1'}}
+
+
+// ----------------------------------------------------------------------
+    // Object.preventExtensions() 对象不可扩展, 即不可以新增属性或方法, 但可以修改/删除
+    // Object.seal()对象属性不可删除，但是可以改变现有属性
+    // Object.freeze()  在上面的基础上，对象所有属性只读, 不可修改
+
+</script>
+</html>

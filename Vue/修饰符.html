@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="vue.js"></script>
+<body>
+    <div id="app">
+        <!-- .capture会从外至内触发事件 -->
+        <!-- 同一触发的事件会先运行最外层的用capture修饰的事件，再按原来的从内到外的顺序触发其他事件 -->
+        <!-- .stop会禁止事件传递，子节点被点击不会触发父节点事件 -->
+        <!-- .once会让该事件只执行一次 -->
+        <div @click="outer">
+            <div @click="middle">
+                <button @click="inner">点击测试冒泡</button>
+            </div>
+        </div>
+        <div>
+            <ul v-for="(item,index) of message">
+                <li>{{item}}</li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script>
+    const vm = new Vue({
+        el:'#app',
+        data () {
+            return {
+                message:['冒泡事件']
+            }
+        },
+        methods: {
+            outer() {
+                console.log('outer is clicked')
+                this.message.push('outer is clicked')
+            },
+            middle() {
+                console.log('middle is clicked')
+                this.message.push('middle is clicked')
+            },
+            inner() {
+                console.log('inner is clicked')
+                this.message.push('inner is clicked')
+            },
+        },
+        watch: {
+            'message':function(newVal,oldVal) {
+                console.log('newVal',newVal)
+            }
+        }
+    })
+</script>
+</html>

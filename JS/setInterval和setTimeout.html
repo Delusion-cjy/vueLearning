@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- https://www.jianshu.com/p/7c42dda386f7 -->
+
+    <!-- 再次强调，定时器指定的时间间隔，
+    表示的是何时将定时器的代码添加到消息队列，
+    而不是何时执行代码。所以真正何时执行代码的时间是不能保证的，
+    取决于何时被主线程的事件循环取到，并执行。 -->
+
+    <!-- 定时器指定的时间是推入消息队列的时间不是执行时间 -->
+    <script>
+        // 任务队列等于消息队列
+
+        // setInterval是宏任务
+        // setInterval(fn(), N);将每过N毫秒将fn()函数推入消息队列，fn()函数执行时间不确定
+        // 存在两个问题
+        // 1、函数操作耗时过长导致的不准确
+            // 由于消息队列前方函数执行时间不确定,所以间隔时间不定,不一定都为N
+            // let startTime = new Date().getTime()
+            // setInterval(function() {
+            //     let i = 0;
+            //     while (i++ < 1000000000);
+            // }, 0);
+            // // 特别是消息队列里还有其他任务
+            // setInterval(()=> {
+            //     let i = 0
+            //     while(i<100){
+            //         i++
+            //     }
+            //     let endTime = new Date().getTime()-startTime
+            //     console.log('相差时间',endTime)
+            //     // 相差时间 1011
+            //     // 相差时间 2012
+            //     // 相差时间 3005
+            //     // 相差时间 4012
+            //     // 相差时间 5009
+            //     // 相差时间 6008
+            //     // 相差时间 7007
+            //     },1000)
+        //    2、可能多个定时器会连续执行 
+                // 当使用setInterval()时，仅当消息队列中没有该定时器的任何其他代码时，才将定时器代码添加到队列中
+                // 因此当一个定时器代码A创建的实例1被推入消息队列中执行时，若实例2这是也被推入队列，此时又没有其他任务，实例2将会在实例1执行后立即执行，
+                // 在实例2等待时，实例3被推入队列，则会跳过实例3，实例3不会被添加
+
+            // for(let i = 0;i < 5;i++){
+            //     setTimeout(() => {
+            //         console.log(i,new Date().getTime())
+            //     },1000)
+            // }
+            // 0 1618899869276
+            // 1 1618899869276
+            // 2 1618899869277
+            // 3 1618899869277
+            // 4 1618899869277
+            // 五个任务一起执行
+            // for(var i = 0;i < 5;i++){
+            //     setTimeout(() => {
+            //         console.log(i,new Date().getTime())
+            //     },1000)
+            // }
+            // 5 1618900078144
+            // 5 1618900078145
+            // 5 1618900078146
+            // 5 1618900078146
+            // 5 1618900078146
+            // 五个任务一起执行
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map
+
+        const map = new Map()
+        map.set(1,2)
+        map.set('1','2')
+        map.set(NaN,NaN)
+        map.set(NaN,1)
+        // 虽然NaN!==NaN,但是NaN和NaN在map中是相等的，所以这样NaN的值是1
+        map.set(undefined,undefined)
+        // console.log('map',map)
+        // console.log('map.size',map.size)
+        const mapCopy = map.entries()
+        // mapCopy.set(copy,copy)
+        // console.log('mapCopy',mapCopy instanceof Object) true
+        // console.log('map',map instanceof Map) true
+        const mapCopyValue = map.values(mapCopy)
+
+{
+        // Map继承自Object
+        // const map1 = new Map()
+        // const obj1 = new Object()
+
+        // // console.log('map1',map1)
+
+        // // console.log('map1-obj1',map1 == obj1)
+        // // console.log('map instanceof Object',map1 instanceof Object)
+        // // console.log('map instanceof Map',map1 instanceof Map)
+
+        // // console.log('obj instanceof Object',obj1 instanceof Object)
+        // // console.log('obj instanceof Map',obj1 instanceof Map)
+
+        // // console.log('Map instanceof Object',Map instanceof Object)
+        // // console.log('Object instanceof Map',Object instanceof Map)
+        // // console.log('typeof Map',typeof Map)
+        // // console.log('Map._proto_',Map._proto_)
+
+}
+
+{
+        // map和object的对比
+            // map也能继承
+        let obj = {
+            a: 'a',
+            b: 'b'
+        }
+        let obj1 = new Object(obj)
+
+        let map1 = new Map()
+        map1.set(1,1)
+        let map2 = new Map(map1)
+        console.log('obj1',obj1)
+        console.log('map2',map2)
+}
+    </script>
+</body>
+</html>
